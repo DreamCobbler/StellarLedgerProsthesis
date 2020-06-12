@@ -4,7 +4,6 @@
   <PropertyGroup Label="UserMacros">
     <libzipHeadersDirectoryPath>E:\Oprogramowanie\zliplib\libzip-1.7.0\lib\;E:\Oprogramowanie\zliplib\zlib-1.2.11;</libzipHeadersDirectoryPath>
     <libzipLibrariesDirectoryPath>E:\Oprogramowanie\zliplib\libzip-1.7.0\build\lib\Release\</libzipLibrariesDirectoryPath>
-    <BoostHeadersDirectoryPath>E:\Oprogramowanie\Boost\1.72.0\</BoostHeadersDirectoryPath>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
@@ -15,10 +14,6 @@
     </BuildMacro>
     <BuildMacro Include="libzipLibrariesDirectoryPath">
       <Value>$(libzipLibrariesDirectoryPath)</Value>
-      <EnvironmentVariable>true</EnvironmentVariable>
-    </BuildMacro>
-    <BuildMacro Include="BoostHeadersDirectoryPath">
-      <Value>$(BoostHeadersDirectoryPath)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
   </ItemGroup>

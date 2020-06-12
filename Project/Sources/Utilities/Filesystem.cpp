@@ -60,13 +60,6 @@ std::vector<char> UnpackFileFromZIPArchive(
 	if (!archiveHandle || errorCode)
 		return {};
 
-	BOOST_SCOPE_EXIT_ALL(&)
-	{
-
-		zip_close(archiveHandle);
-
-	};
-
 	// Retrieve file information and create the buffer.
 
 	zip_stat_t fileMetadata;
@@ -80,7 +73,13 @@ std::vector<char> UnpackFileFromZIPArchive(
 	);
 
 	if (-1 == fileMetadataRetrieval || !(fileMetadata.flags & ZIP_STAT_SIZE))
+	{
+
+		zip_close(archiveHandle);
+
 		return {};
+
+	}
 
 	auto const bufferSize = static_cast<size_t>(
 		isTextFile?
@@ -96,18 +95,22 @@ std::vector<char> UnpackFileFromZIPArchive(
 
 	auto const compressedFile = zip_fopen(archiveHandle, fileNameWithinArchive.data(), 0);
 	if (!compressedFile)
-		return {};
-
-	BOOST_SCOPE_EXIT_ALL(&)
 	{
 
-		zip_fclose(compressedFile);
+		zip_close(archiveHandle);
 
-	};
+		return {};
+
+	}
 
 	auto const readBytesCount = zip_fread(compressedFile, buffer.data(), fileMetadata.size);
 	if (-1 == readBytesCount || fileMetadata.size != static_cast<zip_uint64_t>(readBytesCount))
-		return {};
+	{
+
+		zip_fclose(compressedFile);
+		zip_close(archiveHandle);
+
+	}
 
 	// Return.
 

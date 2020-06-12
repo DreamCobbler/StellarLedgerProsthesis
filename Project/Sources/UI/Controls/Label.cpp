@@ -64,13 +64,6 @@ void Label::SetText(std::string const & text)
 	// Recalculate minimum window dimensions.
 
 	auto const deviceContextHandle = GetDC(_handle);
-	BOOST_SCOPE_EXIT_ALL(&)
-	{
-
-		ReleaseDC(_handle, deviceContextHandle);
-
-	};
-
 	SelectObject(deviceContextHandle, _fontHandle);
 
 	SIZE textSize;
@@ -85,6 +78,8 @@ void Label::SetText(std::string const & text)
 		_minimumWidth = 0;
 		_minimumHeight = 0;
 
+		ReleaseDC(_handle, deviceContextHandle);
+
 		return;
 
 	}
@@ -95,6 +90,10 @@ void Label::SetText(std::string const & text)
 	// Repaint the window.
 
 	Repaint();
+
+	// Clean up.
+
+	ReleaseDC(_handle, deviceContextHandle);
 
 }
 

@@ -30,6 +30,7 @@
 	#include <cstdlib>
 	#include <filesystem>
 	#include <fstream>
+	#include <functional>
 	#include <list>
 	#include <locale>
 	#include <memory>
@@ -42,10 +43,6 @@
 	#include <unordered_set>
 	#include <variant>
 	#include <vector>
-
-	// Boost.
-
-	#include <boost/scope_exit.hpp>
 
 	// libzip.
 

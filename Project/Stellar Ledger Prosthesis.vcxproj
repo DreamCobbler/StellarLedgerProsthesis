@@ -80,7 +80,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Sources/;$(libzipHeadersDirectoryPath);$(BoostHeadersDirectoryPath);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Sources/;$(libzipHeadersDirectoryPath);</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Precompiled Headers.hpp</PrecompiledHeaderFile>
       <DebugInformationFormat>None</DebugInformationFormat>

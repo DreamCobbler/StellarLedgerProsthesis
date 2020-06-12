@@ -1,4 +1,3 @@
 This application uses following libraries:
 
-	- Boost (https://www.boost.org/), licensed under Boost Software License.
-	- libzip (https://libzip.org/), 3-clause BSD license.
+	- libzip (https://libzip.org/), under the terms of the 3-clause BSD license.
