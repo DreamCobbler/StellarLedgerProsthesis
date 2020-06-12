@@ -1,0 +1,42 @@
+#include <Windows.h>
+
+#include "Resources.hpp"
+
+1 VERSIONINFO
+
+FILEVERSION    1, 0, 0, 0
+PRODUCTVERSION 1, 0, 0, 0
+
+FILETYPE VFT_APP
+{
+
+	BLOCK "StringFileInfo"
+	{
+
+		BLOCK "041504E4"
+		{
+
+			VALUE "CompanyName"     , "Benedykt Synakiewicz"
+			VALUE "FileVersion"     , "1.0.0"
+			VALUE "FileDescription" , "Stellar Ledger Prosthesis"
+			VALUE "InternalName"    , "Stellar Ledger Prosthesis"
+			VALUE "LegalCopyright"  , "© (2020) Benedykt Synakiewicz"
+			VALUE "LegalTrademarks" , ""
+			VALUE "OriginalFilename", "Stellar Ledger Prosthesis.exe"
+			VALUE "ProductName"     , "Stellar Ledger Prosthesis"
+			VALUE "ProductVersion"  , "1.0.0"
+
+		}
+
+	}
+
+	BLOCK "VarFileInfo"
+	{
+
+		VALUE "Translation", 0x0415, 1252
+
+	}
+
+}
+
+IDI_SLP_APPLICATION_ICON ICON "../Resources/Icon.ico"

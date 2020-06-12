@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{DEBA91BE-493F-47E5-8A4F-CC3C9B30C9A8}</ProjectGuid>
+    <RootNamespace>StellarLedgerProsthesis</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Property Sheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Property Sheet.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)/../Build/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)/../Build/$(Configuration)/Intermediate Files/</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)/../Build/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)/../Build/$(Configuration)/Intermediate Files/</IntDir>
+    <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Sources/;$(libzipHeadersDirectoryPath);$(BoostHeadersDirectoryPath);</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Precompiled Headers.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link />
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>$(libzipLibrariesDirectoryPath);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Sources/;$(libzipHeadersDirectoryPath);$(BoostHeadersDirectoryPath);</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Precompiled Headers.hpp</PrecompiledHeaderFile>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <StringPooling>true</StringPooling>
+      <OmitFramePointers>true</OmitFramePointers>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>$(libzipLibrariesDirectoryPath);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Sources\Core\Application.cpp" />
+    <ClCompile Include="Sources\Data\Item.cpp" />
+    <ClCompile Include="Sources\Data\GameState.cpp" />
+    <ClCompile Include="Sources\Data\GameStateProcessor.cpp" />
+    <ClCompile Include="Sources\Main.cpp" />
+    <ClCompile Include="Sources\Precompiled Headers.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Sources\UI\Concepts\Window.cpp" />
+    <ClCompile Include="Sources\UI\Controls\Button.cpp" />
+    <ClCompile Include="Sources\UI\Controls\Label.cpp" />
+    <ClCompile Include="Sources\UI\Controls\ListViewControl.cpp" />
+    <ClCompile Include="Sources\UI\Controls\TabViewControl.cpp" />
+    <ClCompile Include="Sources\UI\Panels\EmpiresPanel.cpp" />
+    <ClCompile Include="Sources\UI\Panels\FederationsPanel.cpp" />
+    <ClCompile Include="Sources\UI\Panels\FleetsPanel.cpp" />
+    <ClCompile Include="Sources\UI\Panels\HeaderPanel.cpp" />
+    <ClCompile Include="Sources\UI\Panels\InformationPanel.cpp" />
+    <ClCompile Include="Sources\UI\Panels\OverviewPanel.cpp" />
+    <ClCompile Include="Sources\UI\Panels\PlanetsPanel.cpp" />
+    <ClCompile Include="Sources\UI\Panels\SidePanel.cpp" />
+    <ClCompile Include="Sources\UI\Panels\SpeciesPanel.cpp" />
+    <ClCompile Include="Sources\UI\Panels\SystemsPanel.cpp" />
+    <ClCompile Include="Sources\UI\Panels\WarsPanel.cpp" />
+    <ClCompile Include="Sources\UI\Windows\MainWindow.cpp" />
+    <ClCompile Include="Sources\Utilities\Filesystem.cpp" />
+    <ClCompile Include="Sources\Utilities\StringHighlight\StringHighlight.cpp" />
+    <ClCompile Include="Sources\Utilities\Text.cpp" />
+    <ClCompile Include="Sources\Utilities\UI.cpp" />
+    <ClCompile Include="Sources\Utilities\WinAPI.cpp" />
+    <ClCompile Include="Sources\World\Empire.cpp" />
+    <ClCompile Include="Sources\World\Federation.cpp" />
+    <ClCompile Include="Sources\World\Planet.cpp" />
+    <ClCompile Include="Sources\World\Species.cpp" />
+    <ClCompile Include="Sources\World\System.cpp" />
+    <ClCompile Include="Sources\World\Universe.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sources\Configuration.hpp" />
+    <ClInclude Include="Sources\Core\Application.hpp" />
+    <ClInclude Include="Sources\Data\Item.hpp" />
+    <ClInclude Include="Sources\Data\GameState.hpp" />
+    <ClInclude Include="Sources\Data\GameStateProcessor.hpp" />
+    <ClInclude Include="Sources\Precompiled Headers.hpp" />
+    <ClInclude Include="Sources\Resources\Resources.hpp" />
+    <ClInclude Include="Sources\UI\Concepts\Window.hpp" />
+    <ClInclude Include="Sources\UI\Controls\Button.hpp" />
+    <ClInclude Include="Sources\UI\Controls\Label.hpp" />
+    <ClInclude Include="Sources\UI\Controls\ListViewControl.hpp" />
+    <ClInclude Include="Sources\UI\Controls\TabViewControl.hpp" />
+    <ClInclude Include="Sources\UI\Panels\EmpiresPanel.hpp" />
+    <ClInclude Include="Sources\UI\Panels\FederationsPanel.hpp" />
+    <ClInclude Include="Sources\UI\Panels\FleetsPanel.hpp" />
+    <ClInclude Include="Sources\UI\Panels\HeaderPanel.hpp" />
+    <ClInclude Include="Sources\UI\Panels\InformationPanel.hpp" />
+    <ClInclude Include="Sources\UI\Panels\OverviewPanel.hpp" />
+    <ClInclude Include="Sources\UI\Panels\PlanetsPanel.hpp" />
+    <ClInclude Include="Sources\UI\Panels\SidePanel.hpp" />
+    <ClInclude Include="Sources\UI\Panels\SpeciesPanel.hpp" />
+    <ClInclude Include="Sources\UI\Panels\SystemsPanel.hpp" />
+    <ClInclude Include="Sources\UI\Panels\WarsPanel.hpp" />
+    <ClInclude Include="Sources\UI\UI Parameters.hpp" />
+    <ClInclude Include="Sources\UI\Windows\MainWindow.hpp" />
+    <ClInclude Include="Sources\Utilities\Filesystem.hpp" />
+    <ClInclude Include="Sources\Utilities\General.hpp" />
+    <ClInclude Include="Sources\Utilities\Macros.hpp" />
+    <ClInclude Include="Sources\Utilities\Observable\Observable - Broadcast.hpp" />
+    <ClInclude Include="Sources\Utilities\Observable\Observable - Subscribe.hpp" />
+    <ClInclude Include="Sources\Utilities\Observable\Observable - Unsubscribe.hpp" />
+    <ClInclude Include="Sources\Utilities\Observable\Observable.hpp" />
+    <ClInclude Include="Sources\Utilities\StringHighlight\StringHighlight.hpp" />
+    <ClInclude Include="Sources\Utilities\Text.hpp" />
+    <ClInclude Include="Sources\Utilities\Types.hpp" />
+    <ClInclude Include="Sources\Utilities\UI.hpp" />
+    <ClInclude Include="Sources\Utilities\WinAPI.hpp" />
+    <ClInclude Include="Sources\World\Empire.hpp" />
+    <ClInclude Include="Sources\World\Federation.hpp" />
+    <ClInclude Include="Sources\World\Fleet.hpp" />
+    <ClInclude Include="Sources\World\Planet.hpp" />
+    <ClInclude Include="Sources\World\Pop.hpp" />
+    <ClInclude Include="Sources\World\Species.hpp" />
+    <ClInclude Include="Sources\World\Starbase.hpp" />
+    <ClInclude Include="Sources\World\System.hpp" />
+    <ClInclude Include="Sources\World\Universe.hpp" />
+    <ClInclude Include="Sources\World\War.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Property Sheet.props" />
+    <None Include="Sources\Utilities\General.inl" />
+    <None Include="Sources\Utilities\Text.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Sources\Resources\Application.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
