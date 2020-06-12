@@ -52,6 +52,12 @@ class StringHighlight
 		void Increment();
 
 		///
+		/// Returns the last character of the highlighted part of the string.
+		///
+
+		char const & Back();
+
+		///
 		/// Checks whether the highlight's empty.
 		///
 		/// @return **true** if it's empty, **false** otherwise.
@@ -75,7 +81,7 @@ class StringHighlight
 
 		operator bool() const;
 
-	public:
+	private:
 
 		///
 		/// The string of which we're highlighting parts.
@@ -102,4 +108,3 @@ class StringHighlight
 ///
 
 bool operator==(StringHighlight const & stringHighlight, char const * const & string);
-//bool operator==(StringHighlight const & stringHighlight, std::string const & string);

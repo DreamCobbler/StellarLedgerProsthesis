@@ -74,7 +74,7 @@ bool GameStateProcessor::Tokenize()
 		if (currentlyReadingString)
 		{
 
-			if ('"' == character && (!highlight || '\\' != _rawText[highlight._start + highlight._length]))
+			if ('"' == character && (!highlight || '\\' != highlight.Back()))
 			{
 
 				_tokens.push_back(highlight);
@@ -108,12 +108,12 @@ bool GameStateProcessor::Tokenize()
 			else if ('=' == character || '{' == character || '}' == character)
 			{
 
-				if (highlight._length)
+				if (highlight)
 					_tokens.push_back(highlight);
 
 				highlight.JumpTo(index, 1);
 
-				if (highlight._length)
+				if (highlight)
 					_tokens.push_back(highlight);
 
 				highlight.JumpTo(index + 1);
@@ -123,7 +123,7 @@ bool GameStateProcessor::Tokenize()
 			else if (!IsValidNameCharacter(character))
 			{
 
-				if (highlight._length)
+				if (highlight)
 					_tokens.push_back(highlight);
 
 				highlight.JumpTo(index + 1);

@@ -41,6 +41,13 @@ void StringHighlight::Increment()
 
 }
 
+char const & StringHighlight::Back()
+{
+
+	return (* _string)[_start + _length];
+
+}
+
 bool StringHighlight::IsEmpty() const
 {
 
@@ -63,13 +70,6 @@ StringHighlight::operator bool() const
 }
 
 bool operator==(StringHighlight const & stringHighlight, char const * const & string)
-{
-
-	return static_cast<std::string_view>(stringHighlight) == string;
-
-}
-
-bool operator==(StringHighlight const & stringHighlight, std::string const & string)
 {
 
 	return static_cast<std::string_view>(stringHighlight) == string;
