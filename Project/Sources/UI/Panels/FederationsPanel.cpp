@@ -87,14 +87,14 @@ void FederationsPanel::OnApplicationEvent(
 		{
 
 			auto const leader = application.Universe.GetEntityOfID<Empire>(federation.LeaderID);
-			auto const & energy = GetValueOr(federation.Income, std::string("energy"), 0.0);
-			auto const & minerals = GetValueOr(federation.Income, std::string("minerals"), 0.0);
-			auto const & food = GetValueOr(federation.Income, std::string("food"), 0.0);
-			auto const & alloys = GetValueOr(federation.Income, std::string("alloys"), 0.0);
-			auto const & consumerGoods = GetValueOr(federation.Income, std::string("consumer_goods"), 0.0);
-			auto const & volatileMotes = GetValueOr(federation.Income, std::string("volatile_motes"), 0.0);
-			auto const & exoticGases = GetValueOr(federation.Income, std::string("exotic_gases"), 0.0);
-			auto const & rareCrystals = GetValueOr(federation.Income, std::string("rare_crystals"), 0.0);
+			auto const & energy = GetValueOr(federation.Income, std::string("energy"));
+			auto const & minerals = GetValueOr(federation.Income, std::string("minerals"));
+			auto const & food = GetValueOr(federation.Income, std::string("food"));
+			auto const & alloys = GetValueOr(federation.Income, std::string("alloys"));
+			auto const & goods = GetValueOr(federation.Income, std::string("consumer_goods"));
+			auto const & motes = GetValueOr(federation.Income, std::string("volatile_motes"));
+			auto const & gases = GetValueOr(federation.Income, std::string("exotic_gases"));
+			auto const & crystals = GetValueOr(federation.Income, std::string("rare_crystals"));
 
 			_listViewControl->AppendItem({
 				federation.Name,
@@ -110,10 +110,10 @@ void FederationsPanel::OnApplicationEvent(
 				static_cast<int>(minerals),
 				static_cast<int>(food),
 				static_cast<int>(alloys),
-				static_cast<int>(consumerGoods),
-				static_cast<int>(volatileMotes),
-				static_cast<int>(exoticGases),
-				static_cast<int>(rareCrystals),
+				static_cast<int>(goods),
+				static_cast<int>(motes),
+				static_cast<int>(gases),
+				static_cast<int>(crystals),
 			});
 
 		}

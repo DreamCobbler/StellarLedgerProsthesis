@@ -35,7 +35,7 @@ template<typename Key, typename Value>
 Value const & GetValueOr(
 	std::unordered_map<Key, Value> const & map,
 	Key const & key,
-	Value const & placeholder
+	Value const & placeholder = Value()
 );
 
 ///

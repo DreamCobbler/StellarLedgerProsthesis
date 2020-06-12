@@ -155,15 +155,16 @@ LRESULT ListViewControl::OnNotify(NMHDR const & notification)
 	{
 
 		auto const & translatedNotification = * reinterpret_cast<NMLISTVIEW const *>(&notification);
+		auto const & columnIndex = translatedNotification.iSubItem;
 
 		SortingData const sortingData = {
 			this,
 			_internalWindowHandle,
-			translatedNotification.iSubItem,
-			_columnSortingOrder[translatedNotification.iSubItem],
+			columnIndex,
+			_columnSortingOrder[columnIndex],
 		};
 
-		_columnSortingOrder[translatedNotification.iSubItem] = !_columnSortingOrder[translatedNotification.iSubItem];
+		_columnSortingOrder[columnIndex] = !_columnSortingOrder[columnIndex];
 
 		ListView_SortItems(
 			translatedNotification.hdr.hwndFrom,
@@ -233,7 +234,10 @@ int CALLBACK ListViewControl::ItemComparator(
 	auto const & secondValue = sortingData->Control->_itemData[secondIdentifier]
 		.InputData[sortingData->ColumnIndex];
 
-	if (std::holds_alternative<std::string>(firstValue) && std::holds_alternative<std::string>(secondValue))
+	if (
+		std::holds_alternative<std::string>(firstValue) &&
+		std::holds_alternative<std::string>(secondValue)
+	)
 	{
 
 		auto const & firstString = std::get<std::string>(firstValue);

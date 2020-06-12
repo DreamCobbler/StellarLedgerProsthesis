@@ -77,7 +77,9 @@ void PlanetsPanel::OnApplicationEvent(
 
 			auto const empire = application.Universe.GetEntityOfID<Empire>(planet.OwnerID);
 
-			auto const mainSpecies = application.Universe.GetEntityOfID<Species>(planet.MainSpecies.first);
+			auto const mainSpecies = application.Universe.GetEntityOfID<Species>(
+				planet.MainSpecies.first
+			);
 			auto const mainSpeciesName = mainSpecies->Name;
 			auto const mainSpeciesPercent = 100 * planet.MainSpecies.second;
 

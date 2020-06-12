@@ -73,7 +73,9 @@ void SpeciesPanel::OnApplicationEvent(
 		for (auto const & species : application.Universe.Species)
 		{
 
-			auto const homePlanet = application.Universe.GetEntityOfID<Planet>(species.HomePlanetID);
+			auto const homePlanet = application.Universe.GetEntityOfID<Planet>(
+				species.HomePlanetID
+			);
 
 			_listViewControl->AppendItem({
 				species.Plural,

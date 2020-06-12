@@ -115,42 +115,42 @@ void OverviewPanel::OnApplicationEvent(
 
 		_listViewControl->AppendItem({
 			"Total Energy Production",
-			static_cast<int>(GetValueOr(application.Universe.Income, std::string("energy"), 0.0))
+			static_cast<int>(GetValueOr(application.Universe.Income, std::string("energy")))
 		});
 
 		_listViewControl->AppendItem({
 			"Total Minerals Production",
-			static_cast<int>(GetValueOr(application.Universe.Income, std::string("minerals"), 0.0))
+			static_cast<int>(GetValueOr(application.Universe.Income, std::string("minerals")))
 		});
 
 		_listViewControl->AppendItem({
 			"Total Food Production",
-			static_cast<int>(GetValueOr(application.Universe.Income, std::string("food"), 0.0))
+			static_cast<int>(GetValueOr(application.Universe.Income, std::string("food")))
 		});
 
 		_listViewControl->AppendItem({
 			"Total Alloys Production",
-			static_cast<int>(GetValueOr(application.Universe.Income, std::string("alloys"), 0.0))
+			static_cast<int>(GetValueOr(application.Universe.Income, std::string("alloys")))
 		});
 
 		_listViewControl->AppendItem({
 			"Total C. Goods Production",
-			static_cast<int>(GetValueOr(application.Universe.Income, std::string("consumer_goods"), 0.0))
+			static_cast<int>(GetValueOr(application.Universe.Income, std::string("consumer_goods")))
 		});
 
 		_listViewControl->AppendItem({
 			"Total V. Motes Production",
-			static_cast<int>(GetValueOr(application.Universe.Income, std::string("volatile_motes"), 0.0))
+			static_cast<int>(GetValueOr(application.Universe.Income, std::string("volatile_motes")))
 		});
 
 		_listViewControl->AppendItem({
 			"Total E. Gases Production",
-			static_cast<int>(GetValueOr(application.Universe.Income, std::string("exotic_gases"), 0.0))
+			static_cast<int>(GetValueOr(application.Universe.Income, std::string("exotic_gases")))
 		});
 
 		_listViewControl->AppendItem({
 			"Total R. Crystals Production",
-			static_cast<int>(GetValueOr(application.Universe.Income, std::string("rare_crystals"), 0.0))
+			static_cast<int>(GetValueOr(application.Universe.Income, std::string("rare_crystals")))
 		});
 
 	}

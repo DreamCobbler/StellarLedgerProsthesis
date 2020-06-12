@@ -121,7 +121,8 @@ void MainWindow::OnSize(int const & width, int const & height)
 		StandardMarginWidth,
 		HeaderHeight + LargeMarginWidth,
 		SidePanelWidth,
-		height - (HeaderHeight + LargeMarginWidth) - (2 * StandardMarginWidth) - InformationPanelHeight
+		height - (HeaderHeight + LargeMarginWidth) -
+			(2 * StandardMarginWidth) - InformationPanelHeight
 	);
 
 	// Position the information panel.
@@ -139,7 +140,8 @@ void MainWindow::OnSize(int const & width, int const & height)
 		StandardMarginWidth + SidePanelWidth + LargeMarginWidth,
 		HeaderHeight + LargeMarginWidth,
 		width - (StandardMarginWidth + SidePanelWidth + LargeMarginWidth) - StandardMarginWidth,
-		height - (2 * StandardMarginWidth) - (HeaderHeight + LargeMarginWidth) - InformationPanelHeight
+		height - (2 * StandardMarginWidth) -
+			(HeaderHeight + LargeMarginWidth) - InformationPanelHeight
 	);
 
 }

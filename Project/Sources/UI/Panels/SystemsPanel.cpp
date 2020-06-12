@@ -76,7 +76,9 @@ void SystemsPanel::OnApplicationEvent(
 
 			auto const empire = application.Universe.GetEntityOfID<Empire>(system.OwnerID);
 
-			auto const mainSpecies = application.Universe.GetEntityOfID<Species>(system.MainSpecies.first);
+			auto const mainSpecies = application.Universe.GetEntityOfID<Species>(
+				system.MainSpecies.first
+			);
 			auto const mainSpeciesName = mainSpecies->Name;
 			auto const mainSpeciesPercent = 100 * system.MainSpecies.second;
 

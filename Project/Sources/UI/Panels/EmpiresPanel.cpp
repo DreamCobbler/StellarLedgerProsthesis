@@ -84,14 +84,14 @@ void EmpiresPanel::OnApplicationEvent(
 		for (auto const & empire : application.Universe.Empires)
 		{
 
-			auto const & energy = GetValueOr(empire.Income, std::string("energy"), 0.0);
-			auto const & minerals = GetValueOr(empire.Income, std::string("minerals"), 0.0);
-			auto const & food = GetValueOr(empire.Income, std::string("food"), 0.0);
-			auto const & alloys = GetValueOr(empire.Income, std::string("alloys"), 0.0);
-			auto const & consumerGoods = GetValueOr(empire.Income, std::string("consumer_goods"), 0.0);
-			auto const & volatileMotes = GetValueOr(empire.Income, std::string("volatile_motes"), 0.0);
-			auto const & exoticGases = GetValueOr(empire.Income, std::string("exotic_gases"), 0.0);
-			auto const & rareCrystals = GetValueOr(empire.Income, std::string("rare_crystals"), 0.0);
+			auto const & energy = GetValueOr(empire.Income, std::string("energy"));
+			auto const & minerals = GetValueOr(empire.Income, std::string("minerals"));
+			auto const & food = GetValueOr(empire.Income, std::string("food"));
+			auto const & alloys = GetValueOr(empire.Income, std::string("alloys"));
+			auto const & consumerGoods = GetValueOr(empire.Income, std::string("consumer_goods"));
+			auto const & volatileMotes = GetValueOr(empire.Income, std::string("volatile_motes"));
+			auto const & exoticGases = GetValueOr(empire.Income, std::string("exotic_gases"));
+			auto const & rareCrystals = GetValueOr(empire.Income, std::string("rare_crystals"));
 
 			_listViewControl->AppendItem({
 				empire.Name,
