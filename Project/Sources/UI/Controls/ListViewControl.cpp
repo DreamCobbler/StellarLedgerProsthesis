@@ -36,6 +36,13 @@ ListViewControl::ListViewControl(
 )
 {
 
+	static auto const BackgroundPenHandle = reinterpret_cast<HPEN>(
+		CreatePen(PS_SOLID, 1, BorderColor)
+	);
+
+	_backgroundPenHandle = BackgroundPenHandle;
+	_backgroundBrushHandle = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+
 	Create(parentWindow);
 
 	_internalWindowHandle = CreateWindowEx(
@@ -175,28 +182,6 @@ LRESULT ListViewControl::OnNotify(NMHDR const & notification)
 	}
 
 	return 0;
-
-}
-
-void ListViewControl::OnPaint(PAINTSTRUCT const & paintingData)
-{
-
-	RECT clientAreaRectangle;
-	GetClientRect(_handle, &clientAreaRectangle);
-
-	static auto const PenHandle = CreatePen(PS_SOLID, 1, BorderColor);
-	static auto const BrushHandle = GetStockObject(NULL_BRUSH);
-
-	SelectObject(paintingData.hdc, PenHandle);
-	SelectObject(paintingData.hdc, BrushHandle);
-
-	Rectangle(
-		paintingData.hdc,
-		0,
-		0,
-		clientAreaRectangle.right,
-		clientAreaRectangle.bottom
-	);
 
 }
 

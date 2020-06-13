@@ -30,6 +30,8 @@
 WarsPanel::WarsPanel(Window const & parentWindow)
 {
 
+	_backgroundBrushHandle = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+
 	Create(parentWindow);
 
 	_listViewControl = std::make_unique<ListViewControl>(self, true);
@@ -38,6 +40,12 @@ WarsPanel::WarsPanel(Window const & parentWindow)
 	_listViewControl->AppendColumn("Attacker's Exhaustion", ColumnWidthLong);
 	_listViewControl->AppendColumn("Defender's Exhaustion", ColumnWidthLong);
 	_listViewControl->Show(true);
+
+	_empiresListViewControl = std::make_unique<ListViewControl>(self, true);
+	_empiresListViewControl->AppendColumn("Empire", ColumnWidthVeryLong);
+	_empiresListViewControl->AppendColumn("Side", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("Military", ColumnWidthShort);
+	_empiresListViewControl->Show();
 
 	ObserveUsingMethod(Application::Get(), OnApplicationEvent);
 
@@ -85,17 +93,30 @@ void WarsPanel::OnEnable(bool const & enabled)
 {
 
 	_listViewControl->Enable(enabled);
+	_empiresListViewControl->Enable(enabled);
 
 }
 
 void WarsPanel::OnSize(int const & width, int const & height)
 {
 
+	static auto constexpr EmpiresControlHeightProportion = 0.3;
+
+	auto const empiresControlHeight = static_cast<int>(EmpiresControlHeightProportion * height);
+	auto const mainControlHeight = height - empiresControlHeight - StandardMarginWidth;
+
 	_listViewControl->Reposition(
 		-1,
 		-1,
 		width,
-		height
+		mainControlHeight
+	);
+
+	_empiresListViewControl->Reposition(
+		-1,
+		mainControlHeight + StandardMarginWidth,
+		width,
+		empiresControlHeight
 	);
 
 }
@@ -104,5 +125,6 @@ void WarsPanel::Clear()
 {
 
 	_listViewControl->ClearItems();
+	_empiresListViewControl->ClearItems();
 
 }

@@ -30,6 +30,8 @@
 SpeciesPanel::SpeciesPanel(Window const & parentWindow)
 {
 
+	_backgroundBrushHandle = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+
 	Create(parentWindow);
 
 	_listViewControl = std::make_unique<ListViewControl>(self, true);

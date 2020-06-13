@@ -100,12 +100,6 @@ class ListViewControl: public Window
 		virtual LRESULT OnNotify(NMHDR const & notification) override;
 
 		///
-		/// Event handler called whenever the window's content needs to be repainted.
-		///
-
-		virtual void OnPaint(PAINTSTRUCT const & paintingData) override;
-
-		///
 		/// Event handler called whenever the window's position or size changes.
 		///
 		/// @param width  The new width of the window.

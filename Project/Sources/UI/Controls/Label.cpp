@@ -27,6 +27,9 @@
 Label::Label(Window const & parentWindow)
 {
 
+	_backgroundPenHandle = reinterpret_cast<HPEN>(GetStockObject(NULL_PEN));
+	_backgroundBrushHandle = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+
 	Create(parentWindow);
 
 	SetFont(GetDefaultFontHandle());
@@ -100,31 +103,15 @@ void Label::SetText(std::string const & text)
 void Label::OnPaint(PAINTSTRUCT const & paintingData)
 {
 
-	// Paint the background.
-
-	static auto const PenHandle = GetStockObject(NULL_PEN);
-	static auto const BrushHandle = CreateSolidBrush(RGB(255, 255, 255));
-
-	RECT clientAreaRectangle;
-	GetClientRect(_handle, &clientAreaRectangle);
-
-	SelectObject(paintingData.hdc, PenHandle);
-	SelectObject(paintingData.hdc, BrushHandle);
-
-	Rectangle(
-		paintingData.hdc,
-		0,
-		0,
-		clientAreaRectangle.right + 1,
-		clientAreaRectangle.bottom + 1
-	);
-
 	// Paint the text.
 
 	if (_text.empty())
 		return;
 
 	SelectObject(paintingData.hdc, _fontHandle);
+
+	RECT clientAreaRectangle;
+	GetClientRect(_handle, &clientAreaRectangle);
 
 	DrawText(
 		paintingData.hdc,

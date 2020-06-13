@@ -152,6 +152,26 @@ LRESULT CALLBACK Window::WindowProcedure(
 
 			}
 
+			case WM_ERASEBKGND:
+			{
+
+				RECT clientAreaRectangle;
+				GetClientRect(windowHandle, &clientAreaRectangle);
+
+				auto const deviceContextHandle = GetDC(windowHandle);
+
+				auto const returnValue = window->OnEraseBackground(
+					deviceContextHandle,
+					clientAreaRectangle.right,
+					clientAreaRectangle.bottom
+				);
+
+				ReleaseDC(windowHandle, deviceContextHandle);
+
+				return returnValue;
+
+			};
+
 			case WM_NOTIFY:
 			{
 
@@ -238,5 +258,57 @@ void Window::Create(
 	);
 
 	SetWindowLongPtr(_handle, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+
+}
+
+LRESULT Window::OnEraseBackground(
+	HDC const & deviceContextHandle,
+	int const & width,
+	int const & height
+)
+{
+
+	auto const backgroundPenHandle = _backgroundPenHandle?
+		_backgroundPenHandle:
+		GetStockObject(NULL_PEN);
+	auto backgroundBrushHandle = _backgroundBrushHandle;
+
+	if (!backgroundBrushHandle)
+	{
+
+		WNDCLASSEX classDescription = {0};
+		classDescription.cbSize = sizeof(classDescription);
+
+		GetClassInfoEx(
+			GetModuleHandle(0),
+			WindowClassName.data(),
+			&classDescription
+		);
+
+		backgroundBrushHandle = classDescription.hbrBackground;
+
+	}
+
+	SelectObject(deviceContextHandle, GetStockObject(NULL_PEN));
+	SelectObject(deviceContextHandle, backgroundBrushHandle);
+	Rectangle(
+		deviceContextHandle,
+		0,
+		0,
+		width + 1,
+		height + 1
+	);
+
+	SelectObject(deviceContextHandle, backgroundPenHandle);
+	SelectObject(deviceContextHandle, GetStockObject(NULL_BRUSH));
+	Rectangle(
+		deviceContextHandle,
+		0,
+		0,
+		width,
+		height
+	);
+
+	return 1;
 
 }

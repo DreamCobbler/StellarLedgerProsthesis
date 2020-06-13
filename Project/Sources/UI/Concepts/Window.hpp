@@ -131,6 +131,22 @@ class Window
 		virtual void OnEnable(bool const & enabled) {}
 
 		///
+		/// Event handler called whenever the window is required to erase its background.
+		///
+		/// @param deviceContextHandle The handle of the window's device context.
+		/// @param width               The width of the client area.
+		/// @param height              The height of the client area.
+		///
+		/// @return 1 if the background has been erased, 0 otherwise.
+		///
+
+		virtual LRESULT OnEraseBackground(
+			HDC const & deviceContextHandle,
+			int const & width,
+			int const & height
+		);
+
+		///
 		/// Event handler called whenever a notification arrives.
 		///
 		/// @return Whatever its supposed to return.
@@ -149,6 +165,7 @@ class Window
 		///
 		/// @param width  The new width of the window.
 		/// @param height The new height of the window.
+		///
 
 		virtual void OnSize(int const & width, int const & height) {}
 
@@ -161,6 +178,18 @@ class Window
 		///
 
 		HWND _handle = 0;
+
+		///
+		/// The handle of the background brush. It's used by the OnEraseBackground method.
+		///
+
+		HBRUSH _backgroundBrushHandle = 0;
+
+		///
+		/// The handle of the background pen. It's used by the OnEraseBackground method.
+		///
+
+		HPEN _backgroundPenHandle = 0;
 
 	private:
 

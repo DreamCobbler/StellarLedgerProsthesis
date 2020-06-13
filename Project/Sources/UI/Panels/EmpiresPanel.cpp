@@ -31,6 +31,8 @@
 EmpiresPanel::EmpiresPanel(Window const & parentWindow)
 {
 
+	_backgroundBrushHandle = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+
 	Create(parentWindow);
 
 	_listViewControl = std::make_unique<ListViewControl>(self, true);
@@ -128,8 +130,8 @@ void EmpiresPanel::OnSize(int const & width, int const & height)
 {
 
 	_listViewControl->Reposition(
-		-1,
-		-1,
+		0,
+		0,
 		width,
 		height
 	);

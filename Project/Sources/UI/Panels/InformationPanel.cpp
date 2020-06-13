@@ -32,6 +32,8 @@
 InformationPanel::InformationPanel(Window const & parentWindow)
 {
 
+	_backgroundBrushHandle = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+
 	Create(parentWindow);
 
 	_loadingTimeLabel = std::make_unique<Label>(self);
@@ -79,28 +81,6 @@ void InformationPanel::OnApplicationEvent(
 		RepositionChildren();
 
 	}
-
-}
-
-void InformationPanel::OnPaint(PAINTSTRUCT const & paintingData)
-{
-
-	static auto const PenHandle = GetStockObject(NULL_PEN);
-	static auto const BrushHandle = CreateSolidBrush(RGB(255, 255, 255));
-
-	RECT clientAreaRectangle;
-	GetClientRect(_handle, &clientAreaRectangle);
-
-	SelectObject(paintingData.hdc, PenHandle);
-	SelectObject(paintingData.hdc, BrushHandle);
-
-	Rectangle(
-		paintingData.hdc,
-		0,
-		0,
-		clientAreaRectangle.right + 1,
-		clientAreaRectangle.bottom + 1
-	);
 
 }
 

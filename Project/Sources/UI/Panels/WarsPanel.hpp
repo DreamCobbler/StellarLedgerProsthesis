@@ -89,4 +89,10 @@ class WarsPanel final: public Window
 
 		std::unique_ptr<ListViewControl> _listViewControl;
 
+		///
+		/// The list view containing empires participating in the war.
+		///
+
+		std::unique_ptr<ListViewControl> _empiresListViewControl;
+
 };
