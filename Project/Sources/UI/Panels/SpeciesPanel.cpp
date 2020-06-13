@@ -36,6 +36,7 @@ SpeciesPanel::SpeciesPanel(Window const & parentWindow)
 	_listViewControl->AppendColumn("Name", ColumnWidthVeryLong);
 	_listViewControl->AppendColumn("Home Planet", ColumnWidthMedium);
 	_listViewControl->AppendColumn("Pops", ColumnWidthShort);
+	_listViewControl->AppendColumn("Average Happiness", ColumnWidthMedium);
 	_listViewControl->AppendColumn("Planets", ColumnWidthShort);
 	_listViewControl->AppendColumn("Planets (Main Species)", ColumnWidthVeryLong);
 	_listViewControl->Show(true);
@@ -81,6 +82,7 @@ void SpeciesPanel::OnApplicationEvent(
 				species.Plural,
 				homePlanet? homePlanet->Name : std::string(),
 				species.PopCount,
+				PrettifyNumber(100 * species.Happiness) + "%",
 				species.PlanetCount,
 				species.MainSpeciesPlanetCount,
 			});

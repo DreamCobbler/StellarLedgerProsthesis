@@ -79,6 +79,12 @@ class Species final
 
 		int MainSpeciesPlanetCount = 0;
 
+		///
+		/// The average happiness of the species.
+		///
+
+		double Happiness = 0.0;
+
 	public:
 
 		///

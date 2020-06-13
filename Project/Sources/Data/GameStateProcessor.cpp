@@ -46,7 +46,7 @@ bool GameStateProcessor::IsValidNameCharacter(char const & character)
 	else if (character >= 97 && character <= 122) // a -> z
 		return true;
 
-	else if (56 == character || 95 == character) // . and _
+	else if (46 == character || 95 == character) // . and _
 		return true;
 
 	else if (character >= 48 && character <= 57) // 0 -> 9

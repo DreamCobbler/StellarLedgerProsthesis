@@ -314,6 +314,7 @@ bool Universe::Create(Item const & itemTree)
 			pop.SpeciesID = node.FindValueOr<Identifier>("species_index", -1);
 			pop.PlanetID = node.FindValueOr<Identifier>("planet", -1);
 			pop.Job = node.FindValueOr("job");
+			pop.Happiness = std::stod(node.FindValueOr("happiness", std::string("0.0")));
 
 			Pops.push_back(pop);
 

@@ -47,4 +47,10 @@ class Pop final
 
 		std::string Job;
 
+		///
+		/// The happiness, from 0.0 to 1.0.
+		///
+
+		double Happiness;
+
 };

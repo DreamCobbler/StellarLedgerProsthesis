@@ -28,6 +28,7 @@ void Species::Recalculate(Universe const & universe)
 	PopCount = 0;
 	PlanetCount = 0;
 	MainSpeciesPlanetCount = 0;
+	Happiness = 0.0;
 
 	std::unordered_set<Identifier> planetIDs;
 
@@ -38,11 +39,14 @@ void Species::Recalculate(Universe const & universe)
 			continue;
 
 		PopCount += 1;
+		Happiness += pop.Happiness;
+
 		planetIDs.insert(pop.PlanetID);
 
 	}
 
 	PlanetCount = static_cast<int>(planetIDs.size());
+	Happiness /= PopCount;
 
 	for (auto const & planet : universe.Planets)
 	{
