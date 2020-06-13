@@ -58,8 +58,8 @@ def Main():
     for file in FindFiles(BinariesDirectoryPath, [".dll", ".exe"]):
         copy(file, OutputDirectoryPath)
 
-    for file in FindFiles(DocsDirectoryPath, [".txt"]):
-        copy(file, OutputDirectoryPath)
+    copy(DocsDirectoryPath / "Credits.txt", OutputDirectoryPath)
+    copy(DocsDirectoryPath / "License.txt", OutputDirectoryPath)
 
 def FindFiles(path: Optional[Path] = None, suffixes: Optional[List[str]] = None) -> List[Path]:
 
