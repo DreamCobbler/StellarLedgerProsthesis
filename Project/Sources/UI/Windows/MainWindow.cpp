@@ -49,6 +49,7 @@ MainWindow::MainWindow()
 	_planetsPanel = std::make_unique<PlanetsPanel>(self);
 	_fleetsPanel = std::make_unique<FleetsPanel>(self);
 	_warsPanel = std::make_unique<WarsPanel>(self);
+	_resourcesPanel = std::make_unique<ResourcesPanel>(self);
 
 	_mainTabViewControl = std::make_unique<TabViewControl>(self);
 	_mainTabViewControl->AppendTab("Overview", * _overviewPanel);
@@ -59,6 +60,7 @@ MainWindow::MainWindow()
 	_mainTabViewControl->AppendTab("Planets", * _planetsPanel);
 	_mainTabViewControl->AppendTab("Fleets", * _fleetsPanel);
 	_mainTabViewControl->AppendTab("Wars", * _warsPanel);
+	_mainTabViewControl->AppendTab("Resources", * _resourcesPanel);
 	_mainTabViewControl->Show();
 
 	EnablePanels(false);
@@ -157,5 +159,6 @@ void MainWindow::EnablePanels(bool const & enable)
 	_planetsPanel->Enable(enable);
 	_fleetsPanel->Enable(enable);
 	_warsPanel->Enable(enable);
+	_resourcesPanel->Enable(enable);
 
 }

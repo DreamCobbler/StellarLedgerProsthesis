@@ -25,6 +25,7 @@
 #include <World/Fleet.hpp>
 #include <World/Planet.hpp>
 #include <World/Pop.hpp>
+#include <World/Resource.hpp>
 #include <World/Species.hpp>
 #include <World/Starbase.hpp>
 #include <World/System.hpp>
@@ -112,6 +113,12 @@ class Universe final
 		std::vector<War> Wars;
 
 		///
+		/// Stores data about all the resources.
+		///
+
+		std::vector<Resource> Resources;
+
+		///
 		/// The monthly income of all empires, by resource.
 		///
 
@@ -129,6 +136,17 @@ class Universe final
 
 		template<typename Entity>
 		std::optional<Entity> GetEntityOfID(Identifier const & ID) const;
+
+		///
+		/// Retrieves an entity of name.
+		///
+		/// @param name The name.
+		///
+		/// @return The entity.
+		///
+
+		template<typename Entity>
+		std::optional<Entity> GetEntityOfName(std::string const & name) const;
 
 		///
 		/// Creates universe state from an item tree.

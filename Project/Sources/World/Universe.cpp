@@ -93,6 +93,28 @@ std::optional<Species> Universe::GetEntityOfID(Identifier const & ID) const
 }
 
 template<>
+std::optional<Resource> Universe::GetEntityOfName(std::string const & name) const
+{
+
+	auto const iterator = std::find_if(
+		Resources.cbegin(),
+		Resources.cend(),
+		[&name](Resource const & entity)
+		{
+
+			return entity.Name == name;
+
+		}
+	);
+
+	if (Resources.cend() == iterator)
+		return std::nullopt;
+
+	return (* iterator);
+
+}
+
+template<>
 std::optional<Starbase> Universe::GetEntityOfID(Identifier const & ID) const
 {
 
@@ -384,15 +406,6 @@ bool Universe::Create(Item const & itemTree)
 		Species.end()
 	);
 
-	Empires.erase(
-		std::remove_if(
-			Empires.begin(),
-			Empires.end(),
-			[](Empire const & empire) { return !empire.PlanetCount; }
-		),
-		Empires.end()
-	);
-
 	// Rename species with repeating names.
 
 	std::unordered_map<std::string, std::vector<::Species *>> speciesRepeatingNames;
@@ -458,6 +471,7 @@ void Universe::Clear()
 	Starbases.clear();
 	Systems.clear();
 	Wars.clear();
+	Resources.clear();
 
 	Income.clear();
 
@@ -482,12 +496,57 @@ void Universe::Recalculate()
 		system.Recalculate(self);
 
 	for (auto const & empire : Empires)
+		Income = SumMaps(Income, empire.Income);
+
+	for (auto const & incomeItem : Income)
 	{
 
-		if (!empire.PlanetCount)
-			continue;
+		Resource resource;
+		resource.Name = incomeItem.first;
+		resource.TotalProduction = incomeItem.second;
 
-		Income = SumMaps(Income, empire.Income);
+		auto const mainProducerIterator = std::max_element(
+			Empires.cbegin(),
+			Empires.cend(),
+			[&resource](Empire const & left, Empire const & right)
+			{
+
+				auto leftProduction = 0.0;
+				auto rightProduction = 0.0;
+
+				auto const leftResourceItem = left.Income.find(resource.Name);
+				if (left.Income.cend() != leftResourceItem)
+					leftProduction = leftResourceItem->second;
+
+				auto const rightResourceItem = right.Income.find(resource.Name);
+				if (right.Income.cend() != rightResourceItem)
+					rightProduction = rightResourceItem->second;
+
+				return leftProduction < rightProduction;
+
+			}
+		);
+
+		if (
+			Empires.cend() == mainProducerIterator ||
+			!mainProducerIterator->Income.contains(resource.Name)
+		)
+		{
+
+			resource.MainProducer = {-1, 0.0};
+
+		}
+
+		else
+		{
+
+			resource.MainProducer.first = mainProducerIterator->ID;
+			resource.MainProducer.second =
+				mainProducerIterator->Income.at(resource.Name) / resource.TotalProduction;
+
+		}
+
+		Resources.push_back(resource);
 
 	}
 

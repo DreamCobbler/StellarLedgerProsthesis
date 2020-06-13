@@ -29,6 +29,7 @@
 #include <UI/Panels/InformationPanel.hpp>
 #include <UI/Panels/OverviewPanel.hpp>
 #include <UI/Panels/PlanetsPanel.hpp>
+#include <UI/Panels/ResourcesPanel.hpp>
 #include <UI/Panels/SidePanel.hpp>
 #include <UI/Panels/SpeciesPanel.hpp>
 #include <UI/Panels/SystemsPanel.hpp>
@@ -160,6 +161,12 @@ class MainWindow final: public Window
 		///
 
 		std::unique_ptr<SystemsPanel> _systemsPanel;
+
+		///
+		/// The "Resources" panel.
+		///
+
+		std::unique_ptr<ResourcesPanel> _resourcesPanel;
 
 		///
 		/// The "Wars" panel.
