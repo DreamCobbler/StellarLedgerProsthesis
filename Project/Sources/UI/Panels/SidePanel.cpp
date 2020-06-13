@@ -24,6 +24,7 @@
 
 #include <Data/GameState.hpp>
 
+#include <UI/Dialogs/OpenFileDialog.hpp>
 #include <UI/Panels/SidePanel.hpp>
 #include <UI/UI Parameters.hpp>
 
@@ -71,7 +72,7 @@ SidePanel::~SidePanel()
 
 }
 
-void SidePanel::OnApplicationEvent(Application const & application, ApplicationEvent const & event)
+void SidePanel::OnApplicationEvent(Application const &, ApplicationEvent const & event)
 {
 
 	if (ApplicationEvent::UniverseIsChanging == event)
@@ -119,16 +120,27 @@ void SidePanel::UpdateContent()
 	_savedGameStates.clear();
 	_savedGameStateListControl->ClearItems();
 
-	auto const gameStatesDirectoryPath = GetGameStatesDirectoryPath();
+	auto gameStatesDirectoryPath = GetGameStatesDirectoryPath();
 	if (!std::filesystem::is_directory(gameStatesDirectoryPath))
+	{
+
 		MessageBox(
 			0,
-			"The application couldn't locate the directory containing saved game states.",
+			"The application couldn't locate the directory containing saved game states. "
+				"Please select it manually using the dialog that will appear after you close this "
+				"message.",
 			ApplicationName.data(),
 			MB_TASKMODAL | MB_ICONERROR
 		);
 
-	_savedGameStates = GameState::LocateGameStates(GetGameStatesDirectoryPath());
+		OpenFileDialog openFolderDialog(true);
+		openFolderDialog.Show();
+
+		gameStatesDirectoryPath = openFolderDialog.ViewPath();
+
+	}
+
+	_savedGameStates = GameState::LocateGameStates(gameStatesDirectoryPath);
 	for (auto const & gameState : _savedGameStates)
 		_savedGameStateListControl->AppendItem({
 			gameState.EmpireName,

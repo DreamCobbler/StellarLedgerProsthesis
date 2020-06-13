@@ -115,6 +115,7 @@
     <ClCompile Include="Sources\UI\Controls\Label.cpp" />
     <ClCompile Include="Sources\UI\Controls\ListViewControl.cpp" />
     <ClCompile Include="Sources\UI\Controls\TabViewControl.cpp" />
+    <ClCompile Include="Sources\UI\Dialogs\OpenFileDialog.cpp" />
     <ClCompile Include="Sources\UI\Panels\EmpiresPanel.cpp" />
     <ClCompile Include="Sources\UI\Panels\FederationsPanel.cpp" />
     <ClCompile Include="Sources\UI\Panels\FleetsPanel.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Sources\UI\Controls\Label.hpp" />
     <ClInclude Include="Sources\UI\Controls\ListViewControl.hpp" />
     <ClInclude Include="Sources\UI\Controls\TabViewControl.hpp" />
+    <ClInclude Include="Sources\UI\Dialogs\OpenFileDialog.hpp" />
     <ClInclude Include="Sources\UI\Panels\EmpiresPanel.hpp" />
     <ClInclude Include="Sources\UI\Panels\FederationsPanel.hpp" />
     <ClInclude Include="Sources\UI\Panels\FleetsPanel.hpp" />

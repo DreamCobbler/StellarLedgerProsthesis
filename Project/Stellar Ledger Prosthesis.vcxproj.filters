@@ -117,6 +117,9 @@
     <ClCompile Include="Sources\UI\Panels\WarsPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\UI\Dialogs\OpenFileDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Precompiled Headers.hpp">
@@ -258,6 +261,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sources\UI\UI Parameters.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\UI\Dialogs\OpenFileDialog.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -88,7 +88,11 @@ Application::Application()
 	INITCOMMONCONTROLSEX commonControlsInitialization;
 	commonControlsInitialization.dwSize = sizeof(commonControlsInitialization);
 	commonControlsInitialization.dwICC = ICC_LISTVIEW_CLASSES | ICC_TAB_CLASSES;
-
 	InitCommonControlsEx(&commonControlsInitialization);
+
+	CoInitializeEx(
+		nullptr,
+		COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE
+	);
 
 }
