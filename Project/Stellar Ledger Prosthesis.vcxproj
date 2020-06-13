@@ -198,6 +198,9 @@
   <ItemGroup>
     <ResourceCompile Include="Sources\Resources\Application.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="Sources\Resources\Application.manifest" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
