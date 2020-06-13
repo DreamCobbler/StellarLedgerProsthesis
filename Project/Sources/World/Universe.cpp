@@ -200,20 +200,39 @@ bool Universe::Create(Item const & itemTree)
 
 			if (auto const budgetNode = node.Find("budget"))
 			if (auto const monthlyBudgetNode = budgetNode->Find("current_month"))
-			if (auto const monthlyIncomeNode = monthlyBudgetNode->Find("income"))
-				for (auto const & incomeSourceNode : monthlyIncomeNode->Children)
-					for (auto const & incomeTypeNode : incomeSourceNode.Children)
-					{
+			{
 
-						auto const incomeTypeName = std::string(incomeTypeNode.Name);
-						if (!empire.Income.contains(incomeTypeName))
-							empire.Income[incomeTypeName] = 0;
+				if (auto const incomeNode = monthlyBudgetNode->Find("income"))
+					for (auto const & incomeSourceNode : incomeNode->Children)
+						for (auto const & incomeTypeNode : incomeSourceNode.Children)
+						{
 
-						empire.Income[incomeTypeName] += std::stod(
-							std::string(incomeTypeNode.Value)
-						);
+							auto const incomeTypeName = std::string(incomeTypeNode.Name);
+							if (!empire.Income.contains(incomeTypeName))
+								empire.Income[incomeTypeName] = 0.0;
 
-					}
+							empire.Income[incomeTypeName] += std::stod(
+								std::string(incomeTypeNode.Value)
+							);
+
+						}
+
+				if (auto const expenseNode = monthlyBudgetNode->Find("expenses"))
+					for (auto const & expenseSourceNode : expenseNode->Children)
+						for (auto const & expenseTypeNode : expenseSourceNode.Children)
+						{
+
+							auto const expenseTypeName = std::string(expenseTypeNode.Name);
+							if (!empire.Expenses.contains(expenseTypeName))
+								empire.Expenses[expenseTypeName] = 0.0;
+
+							empire.Expenses[expenseTypeName] += std::stod(
+								std::string(expenseTypeNode.Value)
+							);
+
+						}
+
+			}
 
 			Empires.push_back(empire); 
 
@@ -498,53 +517,24 @@ void Universe::Recalculate()
 	for (auto const & empire : Empires)
 		Income = SumMaps(Income, empire.Income);
 
-	for (auto const & incomeItem : Income)
+	std::unordered_set<std::string> resourceNames;
+	for (auto const & empire : Empires)
+	{
+
+		for (auto const & resourceItem : empire.Income)
+			resourceNames.insert(resourceItem.first);
+
+		for (auto const & resourceItem : empire.Expenses)
+			resourceNames.insert(resourceItem.first);
+
+	}
+
+	for (auto const & name : resourceNames)
 	{
 
 		Resource resource;
-		resource.Name = incomeItem.first;
-		resource.TotalProduction = incomeItem.second;
-
-		auto const mainProducerIterator = std::max_element(
-			Empires.cbegin(),
-			Empires.cend(),
-			[&resource](Empire const & left, Empire const & right)
-			{
-
-				auto leftProduction = 0.0;
-				auto rightProduction = 0.0;
-
-				auto const leftResourceItem = left.Income.find(resource.Name);
-				if (left.Income.cend() != leftResourceItem)
-					leftProduction = leftResourceItem->second;
-
-				auto const rightResourceItem = right.Income.find(resource.Name);
-				if (right.Income.cend() != rightResourceItem)
-					rightProduction = rightResourceItem->second;
-
-				return leftProduction < rightProduction;
-
-			}
-		);
-
-		if (
-			Empires.cend() == mainProducerIterator ||
-			!mainProducerIterator->Income.contains(resource.Name)
-		)
-		{
-
-			resource.MainProducer = {-1, 0.0};
-
-		}
-
-		else
-		{
-
-			resource.MainProducer.first = mainProducerIterator->ID;
-			resource.MainProducer.second =
-				mainProducerIterator->Income.at(resource.Name) / resource.TotalProduction;
-
-		}
+		resource.Name = name;
+		resource.Recalculate(self);
 
 		Resources.push_back(resource);
 

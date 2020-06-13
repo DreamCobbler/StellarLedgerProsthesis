@@ -33,9 +33,11 @@ ResourcesPanel::ResourcesPanel(Window const & parentWindow)
 	Create(parentWindow);
 
 	_listViewControl = std::make_unique<ListViewControl>(self, true);
-	_listViewControl->AppendColumn("Name", ColumnWidthMedium);
-	_listViewControl->AppendColumn("Production", ColumnWidthShort);
+	_listViewControl->AppendColumn("Name", ColumnWidthLong);
+	_listViewControl->AppendColumn("Production", ColumnWidthMedium);
 	_listViewControl->AppendColumn("Main Producer", ColumnWidthVeryLong);
+	_listViewControl->AppendColumn("Consumption", ColumnWidthMedium);
+	_listViewControl->AppendColumn("Main Consumer", ColumnWidthVeryLong);
 	_listViewControl->Show(true);
 
 	ObserveUsingMethod(Application::Get(), OnApplicationEvent);
@@ -68,61 +70,40 @@ void ResourcesPanel::OnApplicationEvent(
 
 		Enable(true);
 
-		if (auto const resource = application.Universe.GetEntityOfName<Resource>("energy"))
+		static std::unordered_map<std::string, std::string> const NamingScheme =
+		{
+
+			{"energy", "Energy"},
+			{"minerals", "Minerals"},
+			{"food", "Food"},
+			{"alloys", "Alloys"},
+			{"consumer_goods", "Consumer Goods"},
+			{"volatile_motes", "Volatile Motes"},
+			{"exotic_gases", "Exotic Gases"},
+			{"rare_crystals", "Rare Crystals"},
+			{"nanites", "Nanites"},
+			{"sr_zro", "Zro"},
+			{"sr_living_metal", "Living Metal"},
+			{"sr_dark_matter", "Dark Matter"},
+
+		};
+
+		for (auto const & resource : application.Universe.Resources)
+		{
+
+			auto const nameIterator = NamingScheme.find(resource.Name);
+			if (NamingScheme.cend() == nameIterator)
+				continue;
+
 			_listViewControl->AppendItem({
-				"Energy",
-				static_cast<int>(resource->TotalProduction),
-				resource->GetMainProducerDescription(application.Universe),
+				NamingScheme.at(resource.Name),
+				static_cast<int>(resource.TotalProduction),
+				resource.GetMainProducerDescription(application.Universe),
+				static_cast<int>(resource.TotalConsumption),
+				resource.GetMainConsumerDescription(application.Universe),
 			});
 
-		if (auto const resource = application.Universe.GetEntityOfName<Resource>("minerals"))
-			_listViewControl->AppendItem({
-				"Minerals",
-				static_cast<int>(resource->TotalProduction),
-				resource->GetMainProducerDescription(application.Universe),
-			});
-
-		if (auto const resource = application.Universe.GetEntityOfName<Resource>("food"))
-			_listViewControl->AppendItem({
-				"Food",
-				static_cast<int>(resource->TotalProduction),
-				resource->GetMainProducerDescription(application.Universe),
-			});
-
-		if (auto const resource = application.Universe.GetEntityOfName<Resource>("alloys"))
-			_listViewControl->AppendItem({
-				"Alloys",
-				static_cast<int>(resource->TotalProduction),
-				resource->GetMainProducerDescription(application.Universe),
-			});
-
-		if (auto const resource = application.Universe.GetEntityOfName<Resource>("consumer_goods"))
-			_listViewControl->AppendItem({
-				"C. Goods",
-				static_cast<int>(resource->TotalProduction),
-				resource->GetMainProducerDescription(application.Universe),
-			});
-
-		if (auto const resource = application.Universe.GetEntityOfName<Resource>("volatile_motes"))
-			_listViewControl->AppendItem({
-				"V. Motes",
-				static_cast<int>(resource->TotalProduction),
-				resource->GetMainProducerDescription(application.Universe),
-			});
-
-		if (auto const resource = application.Universe.GetEntityOfName<Resource>("exotic_gases"))
-			_listViewControl->AppendItem({
-				"E. Gases",
-				static_cast<int>(resource->TotalProduction),
-				resource->GetMainProducerDescription(application.Universe),
-			});
-
-		if (auto const resource = application.Universe.GetEntityOfName<Resource>("rare_crystals"))
-			_listViewControl->AppendItem({
-				"R. Crystals",
-				static_cast<int>(resource->TotalProduction),
-				resource->GetMainProducerDescription(application.Universe),
-			});
+		}
 
 	}
 

@@ -16,7 +16,7 @@ class Resource final
 		std::string Name;
 
 		///
-		/// The total production of it.
+		/// The total production of the resource.
 		///
 
 		double TotalProduction;
@@ -27,6 +27,21 @@ class Resource final
 		///
 
 		std::pair<Identifier, double> MainProducer;
+
+		///
+		/// The total consumption of the resource.
+		///
+
+		double TotalConsumption;
+
+		///
+		/// The main consumer. First value is the ID of an empire, the second's proportion of
+		/// total consumption.
+		///
+
+		std::pair<Identifier, double> MainConsumer;
+
+
 
 	public:
 
@@ -39,5 +54,23 @@ class Resource final
 		///
 
 		std::string GetMainProducerDescription(class Universe const & universe) const;
+
+		///
+		/// Describes the main consumer in following format: "[Empire Name] ([Percent])".
+		///
+		/// @param The universe in which the resource exists.
+		///
+		/// @return The description.
+		///
+
+		std::string GetMainConsumerDescription(class Universe const & universe) const;
+
+		///
+		/// Calculates some of the values.
+		///
+		/// @param universe The universe in which the resource exists.
+		///
+
+		void Recalculate(class Universe const & universe);
 
 };

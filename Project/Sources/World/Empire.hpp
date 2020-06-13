@@ -89,6 +89,12 @@ class Empire final
 
 		std::unordered_map<std::string, double> Income;
 
+		///
+		/// The monthly expenses of the empire, by resource.
+		///
+
+		std::unordered_map<std::string, double> Expenses;
+
 	public:
 
 		///
