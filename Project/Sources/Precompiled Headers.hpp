@@ -46,7 +46,11 @@
 
 	// libzip.
 
+	#undef _WIN32
+
 	#include <zip.h>
+
+	#define _WIN32
 
 	// Windows API.
 

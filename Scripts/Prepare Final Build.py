@@ -35,7 +35,6 @@ from typing import List, Optional
 #
 
 BinariesDirectoryPath = Path("../Build/Release/")
-DynamicLibrariesDirectoryPath = Path("../Dynamic Libraries/")
 DocsDirectoryPath = Path("../Docs/")
 
 OutputDirectoryPath = Path("../Environment/")
@@ -57,9 +56,6 @@ def Main():
     OutputDirectoryPath.mkdir(parents = True, exist_ok = True)
 
     for file in FindFiles(BinariesDirectoryPath, [".dll", ".exe"]):
-        copy(file, OutputDirectoryPath)
-
-    for file in FindFiles(DynamicLibrariesDirectoryPath, [".dll"]):
         copy(file, OutputDirectoryPath)
 
     for file in FindFiles(DocsDirectoryPath, [".txt"]):

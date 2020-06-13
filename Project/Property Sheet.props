@@ -3,7 +3,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
     <libzipHeadersDirectoryPath>E:\Oprogramowanie\zliplib\libzip-1.7.0\lib\;E:\Oprogramowanie\zliplib\zlib-1.2.11;</libzipHeadersDirectoryPath>
-    <libzipLibrariesDirectoryPath>E:\Oprogramowanie\zliplib\libzip-1.7.0\build\lib\Release\</libzipLibrariesDirectoryPath>
+    <libzipLibrariesDirectoryPath>E:\Oprogramowanie\zliplib\libzip-1.7.0\lib\Release\</libzipLibrariesDirectoryPath>
+    <zlibLibrariesDirectoryPath>E:\Oprogramowanie\zliplib\zlib-1.2.11\contrib\vstudio\vc14\x64\ZlibStatRelease\</zlibLibrariesDirectoryPath>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
@@ -14,6 +15,10 @@
     </BuildMacro>
     <BuildMacro Include="libzipLibrariesDirectoryPath">
       <Value>$(libzipLibrariesDirectoryPath)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="zlibLibrariesDirectoryPath">
+      <Value>$(zlibLibrariesDirectoryPath)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
   </ItemGroup>
