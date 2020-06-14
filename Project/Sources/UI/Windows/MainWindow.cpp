@@ -111,8 +111,8 @@ void MainWindow::OnSize(int const & width, int const & height)
 	// Position the header.
 
 	_headerPanel->Reposition(
-		0,
-		0,
+		std::nullopt,
+		std::nullopt,
 		width,
 		HeaderHeight
 	);
@@ -130,7 +130,7 @@ void MainWindow::OnSize(int const & width, int const & height)
 	// Position the information panel.
 
 	_informationPanel->Reposition(
-		0,
+		std::nullopt,
 		height - InformationPanelHeight,
 		width,
 		InformationPanelHeight

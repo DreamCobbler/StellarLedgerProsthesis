@@ -35,7 +35,7 @@ FederationsPanel::FederationsPanel(Window const & parentWindow)
 
 	Create(parentWindow);
 
-	_listViewControl = std::make_unique<ListViewControl>(self, true, true, false);
+	_listViewControl = std::make_unique<ListViewControl>(self, true, true);
 	_listViewControl->AppendColumn("Name", ColumnWidthVeryLong);
 	_listViewControl->AppendColumn("Date Created", ColumnWidthMedium);
 	_listViewControl->AppendColumn("Current Leader", ColumnWidthVeryLong);
@@ -55,7 +55,7 @@ FederationsPanel::FederationsPanel(Window const & parentWindow)
 	_listViewControl->AppendColumn("R. Crystals (Prod.)", ColumnWidthMedium);
 	_listViewControl->Show(true);
 
-	_empiresListViewControl = std::make_unique<ListViewControl>(self, true, true, false);
+	_empiresListViewControl = std::make_unique<ListViewControl>(self, true, true);
 	_empiresListViewControl->AppendColumn("Name", ColumnWidthVeryLong);
 	_empiresListViewControl->AppendColumn("Military", ColumnWidthShort);
 	_empiresListViewControl->AppendColumn("Economy", ColumnWidthShort);
@@ -229,14 +229,14 @@ void FederationsPanel::OnSize(int const & width, int const & height)
 	auto const mainControlHeight = height - empiresControlHeight - StandardMarginWidth;
 
 	_listViewControl->Reposition(
-		-1,
-		-1,
+		std::nullopt,
+		std::nullopt,
 		width,
 		mainControlHeight
 	);
 
 	_empiresListViewControl->Reposition(
-		-1,
+		std::nullopt,
 		mainControlHeight + StandardMarginWidth,
 		width,
 		empiresControlHeight

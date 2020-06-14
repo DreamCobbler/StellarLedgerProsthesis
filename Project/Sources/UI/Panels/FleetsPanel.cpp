@@ -34,7 +34,7 @@ FleetsPanel::FleetsPanel(Window const & parentWindow)
 
 	Create(parentWindow);
 
-	_listViewControl = std::make_unique<ListViewControl>(self, true, true, false);
+	_listViewControl = std::make_unique<ListViewControl>(self, true, true);
 	_listViewControl->AppendColumn("Name", ColumnWidthVeryLong);
 	_listViewControl->AppendColumn("Owner", ColumnWidthVeryLong);
 	_listViewControl->AppendColumn("Power", ColumnWidthShort);
@@ -100,8 +100,8 @@ void FleetsPanel::OnSize(int const & width, int const & height)
 {
 
 	_listViewControl->Reposition(
-		-1,
-		-1,
+		std::nullopt,
+		std::nullopt,
 		width,
 		height
 	);

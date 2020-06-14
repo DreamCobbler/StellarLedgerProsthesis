@@ -99,14 +99,14 @@ void SidePanel::OnSize(int const & width, int const & height)
 	auto const listViewHeight = height - StandardMarginWidth - Button::TypicalHeight;
 
 	_savedGameStateListControl->Reposition(
-		0,
-		0,
+		std::nullopt,
+		std::nullopt,
 		width,
 		listViewHeight
 	);
 
 	_loadGameStateButton->Reposition(
-		0,
+		std::nullopt,
 		listViewHeight + StandardMarginWidth,
 		width,
 		Button::TypicalHeight

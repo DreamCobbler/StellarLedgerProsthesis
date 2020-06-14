@@ -35,7 +35,7 @@ OverviewPanel::OverviewPanel(Window const & parentWindow)
 
 	Create(parentWindow);
 
-	_listViewControl = std::make_unique<ListViewControl>(self, true, true, false);
+	_listViewControl = std::make_unique<ListViewControl>(self, true, true);
 	_listViewControl->AppendColumn("Parameter", ColumnWidthVeryLong);
 	_listViewControl->AppendColumn("Value", ColumnWidthVeryLong);
 	_listViewControl->Show(true);
@@ -170,8 +170,8 @@ void OverviewPanel::OnSize(int const & width, int const & height)
 {
 
 	_listViewControl->Reposition(
-		-1,
-		-1,
+		std::nullopt,
+		std::nullopt,
 		width,
 		height
 	);

@@ -34,7 +34,7 @@ ResourcesPanel::ResourcesPanel(Window const & parentWindow)
 
 	Create(parentWindow);
 
-	_listViewControl = std::make_unique<ListViewControl>(self, true, true, false);
+	_listViewControl = std::make_unique<ListViewControl>(self, true, true);
 	_listViewControl->AppendColumn("Name", ColumnWidthLong);
 	_listViewControl->AppendColumn("Flow", ColumnWidthMedium);
 	_listViewControl->AppendColumn("Production", ColumnWidthMedium);
@@ -137,8 +137,8 @@ void ResourcesPanel::OnSize(int const & width, int const & height)
 {
 
 	_listViewControl->Reposition(
-		-1,
-		-1,
+		std::nullopt,
+		std::nullopt,
 		width,
 		height
 	);

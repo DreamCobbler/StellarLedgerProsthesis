@@ -35,14 +35,14 @@ WarsPanel::WarsPanel(Window const & parentWindow)
 
 	Create(parentWindow);
 
-	_listViewControl = std::make_unique<ListViewControl>(self, true, true, false);
+	_listViewControl = std::make_unique<ListViewControl>(self, true, true);
 	_listViewControl->AppendColumn("Name", ColumnWidthUltraLong);
 	_listViewControl->AppendColumn("Date Started", ColumnWidthMedium);
 	_listViewControl->AppendColumn("Attacker's Exhaustion", ColumnWidthLong);
 	_listViewControl->AppendColumn("Defender's Exhaustion", ColumnWidthLong);
 	_listViewControl->Show(true);
 
-	_empiresListViewControl = std::make_unique<ListViewControl>(self, true, true, false);
+	_empiresListViewControl = std::make_unique<ListViewControl>(self, true, true);
 	_empiresListViewControl->AppendColumn("Name", ColumnWidthVeryLong);
 	_empiresListViewControl->AppendColumn("Military", ColumnWidthShort);
 	_empiresListViewControl->AppendColumn("Economy", ColumnWidthShort);
@@ -229,14 +229,14 @@ void WarsPanel::OnSize(int const & width, int const & height)
 	auto const mainControlHeight = height - empiresControlHeight - StandardMarginWidth;
 
 	_listViewControl->Reposition(
-		-1,
-		-1,
+		std::nullopt,
+		std::nullopt,
 		width,
 		mainControlHeight
 	);
 
 	_empiresListViewControl->Reposition(
-		-1,
+		std::nullopt,
 		mainControlHeight + StandardMarginWidth,
 		width,
 		empiresControlHeight
