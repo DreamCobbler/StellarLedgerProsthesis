@@ -60,14 +60,14 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Sources/;$(libzipHeadersDirectoryPath);$(BoostHeadersDirectoryPath);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Sources/;$(zlibHeadersDirectoryPath);$(libzipHeadersDirectoryPath);</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Precompiled Headers.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link />
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(libzipLibrariesDirectoryPath);$(zlibLibrariesDirectoryPath);</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(zlibLibrariesDirectoryPath);$(libzipLibrariesDirectoryPath);</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;zlibstat.lib;zipstatic.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -80,7 +80,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Sources/;$(libzipHeadersDirectoryPath);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Sources/;$(zlibHeadersDirectoryPath);$(libzipHeadersDirectoryPath);</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Precompiled Headers.hpp</PrecompiledHeaderFile>
       <DebugInformationFormat>None</DebugInformationFormat>
@@ -95,7 +95,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(libzipLibrariesDirectoryPath);$(zlibLibrariesDirectoryPath);</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(zlibLibrariesDirectoryPath);$(libzipLibrariesDirectoryPath);</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;zlibstat.lib;zipstatic.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent />

@@ -2,23 +2,28 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <libzipHeadersDirectoryPath>E:\Oprogramowanie\zliplib\libzip-1.7.0\lib\;E:\Oprogramowanie\zliplib\zlib-1.2.11;</libzipHeadersDirectoryPath>
-    <libzipLibrariesDirectoryPath>E:\Oprogramowanie\zliplib\libzip-1.7.0\lib\Release\</libzipLibrariesDirectoryPath>
+    <zlibHeadersDirectoryPath>E:\Oprogramowanie\zliplib\zlib-1.2.11</zlibHeadersDirectoryPath>
     <zlibLibrariesDirectoryPath>E:\Oprogramowanie\zliplib\zlib-1.2.11\contrib\vstudio\vc14\x64\ZlibStatRelease\</zlibLibrariesDirectoryPath>
+    <libzipHeadersDirectoryPath>E:\Oprogramowanie\zliplib\libzip-1.7.0\lib\</libzipHeadersDirectoryPath>
+    <libzipLibrariesDirectoryPath>E:\Oprogramowanie\zliplib\libzip-1.7.0\lib\Release\</libzipLibrariesDirectoryPath>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
   <ItemGroup>
+    <BuildMacro Include="zlibHeadersDirectoryPath">
+      <Value>$(zlibHeadersDirectoryPath)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="zlibLibrariesDirectoryPath">
+      <Value>$(zlibLibrariesDirectoryPath)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
     <BuildMacro Include="libzipHeadersDirectoryPath">
       <Value>$(libzipHeadersDirectoryPath)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
     <BuildMacro Include="libzipLibrariesDirectoryPath">
       <Value>$(libzipLibrariesDirectoryPath)</Value>
-      <EnvironmentVariable>true</EnvironmentVariable>
-    </BuildMacro>
-    <BuildMacro Include="zlibLibrariesDirectoryPath">
-      <Value>$(zlibLibrariesDirectoryPath)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
   </ItemGroup>
