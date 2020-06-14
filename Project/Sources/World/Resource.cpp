@@ -143,4 +143,8 @@ void Resource::Recalculate(class Universe const & universe)
 
 	}
 
+	// Calculate the flow.
+
+	TotalFlow = TotalProduction - TotalConsumption;
+
 }

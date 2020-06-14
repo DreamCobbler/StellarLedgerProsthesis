@@ -36,6 +36,7 @@ ResourcesPanel::ResourcesPanel(Window const & parentWindow)
 
 	_listViewControl = std::make_unique<ListViewControl>(self, true, true, false);
 	_listViewControl->AppendColumn("Name", ColumnWidthLong);
+	_listViewControl->AppendColumn("Flow", ColumnWidthMedium);
 	_listViewControl->AppendColumn("Production", ColumnWidthMedium);
 	_listViewControl->AppendColumn("Main Producer", ColumnWidthVeryLong);
 	_listViewControl->AppendColumn("Consumption", ColumnWidthMedium);
@@ -87,18 +88,32 @@ void ResourcesPanel::OnApplicationEvent(
 			{"sr_zro", "Zro"},
 			{"sr_living_metal", "Living Metal"},
 			{"sr_dark_matter", "Dark Matter"},
+			{"esc_enigmatic_energy", "Enigmatic Energy"},
+			{"esc_gravitic_anomaly", "Gravitic Anomaly"},
+			{"esc_living_crystal", "Living Crystal"},
+			{"esc_psionic_charge", "Psionic Charge"},
+			{"esc_transdimensional_vortex", "Transdimensional Vortex"},
+			{"influence", "Influence"},
+			{"minor_artifacts", "Minor Artifacts"},
+			{"physics_research", "Physics Research"},
+			{"society_research", "Society Research"},
+			{"engineering_research", "Engineering Research"},
+			{"unity", "Unity"},
 
 		};
 
 		for (auto const & resource : application.Universe.Resources)
 		{
 
+			auto displayName = resource.Name;
+
 			auto const nameIterator = NamingScheme.find(resource.Name);
-			if (NamingScheme.cend() == nameIterator)
-				continue;
+			if (NamingScheme.cend() != nameIterator)
+				displayName = nameIterator->second;
 
 			_listViewControl->AppendItem({
-				NamingScheme.at(resource.Name),
+				displayName,
+				static_cast<int>(resource.TotalFlow),
 				static_cast<int>(resource.TotalProduction),
 				resource.GetMainProducerDescription(application.Universe),
 				static_cast<int>(resource.TotalConsumption),

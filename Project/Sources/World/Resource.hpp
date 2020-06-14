@@ -41,7 +41,11 @@ class Resource final
 
 		std::pair<Identifier, double> MainConsumer;
 
+		///
+		/// The flow of the resource (production - consumption).
+		///
 
+		double TotalFlow;
 
 	public:
 
