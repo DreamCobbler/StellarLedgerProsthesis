@@ -25,6 +25,7 @@
 #include <UI/Panels/WarsPanel.hpp>
 #include <UI/UI Parameters.hpp>
 
+#include <Utilities/General.hpp>
 #include <Utilities/Text.hpp>
 
 WarsPanel::WarsPanel(Window const & parentWindow)
@@ -42,9 +43,21 @@ WarsPanel::WarsPanel(Window const & parentWindow)
 	_listViewControl->Show(true);
 
 	_empiresListViewControl = std::make_unique<ListViewControl>(self, true, true, false);
-	_empiresListViewControl->AppendColumn("Empire", ColumnWidthVeryLong);
-	_empiresListViewControl->AppendColumn("Side", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("Name", ColumnWidthVeryLong);
 	_empiresListViewControl->AppendColumn("Military", ColumnWidthShort);
+	_empiresListViewControl->AppendColumn("Economy", ColumnWidthShort);
+	_empiresListViewControl->AppendColumn("Technology", ColumnWidthShort);
+	_empiresListViewControl->AppendColumn("Planets", ColumnWidthShort);
+	_empiresListViewControl->AppendColumn("Pops", ColumnWidthShort);
+	_empiresListViewControl->AppendColumn("Research (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("Energy (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("Minerals (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("Food (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("Alloys (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("C. Goods (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("V. Motes (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("E. Gases (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("R. Crystals (Prod.)", ColumnWidthMedium);
 	_empiresListViewControl->Show();
 
 	ObserveUsingMethod(Application::Get(), OnApplicationEvent);
@@ -130,10 +143,31 @@ void WarsPanel::OnListViewControlEvent(
 			if (!empire)
 				continue;
 
+			auto const & energy = GetValueOr(empire->Income, std::string("energy"));
+			auto const & minerals = GetValueOr(empire->Income, std::string("minerals"));
+			auto const & food = GetValueOr(empire->Income, std::string("food"));
+			auto const & alloys = GetValueOr(empire->Income, std::string("alloys"));
+			auto const & consumerGoods = GetValueOr(empire->Income, std::string("consumer_goods"));
+			auto const & volatileMotes = GetValueOr(empire->Income, std::string("volatile_motes"));
+			auto const & exoticGases = GetValueOr(empire->Income, std::string("exotic_gases"));
+			auto const & rareCrystals = GetValueOr(empire->Income, std::string("rare_crystals"));
+
 			_empiresListViewControl->AppendItem({
 				empire->Name,
-				"attacker",
 				empire->MilitaryPower,
+				empire->EconomyPower,
+				empire->TechnologyPower,
+				empire->PlanetCount,
+				empire->PopCount,
+				empire->MonthlyResearch,
+				static_cast<int>(energy),
+				static_cast<int>(minerals),
+				static_cast<int>(food),
+				static_cast<int>(alloys),
+				static_cast<int>(consumerGoods),
+				static_cast<int>(volatileMotes),
+				static_cast<int>(exoticGases),
+				static_cast<int>(rareCrystals),
 			});
 
 		}
@@ -145,10 +179,31 @@ void WarsPanel::OnListViewControlEvent(
 			if (!empire)
 				continue;
 
+			auto const & energy = GetValueOr(empire->Income, std::string("energy"));
+			auto const & minerals = GetValueOr(empire->Income, std::string("minerals"));
+			auto const & food = GetValueOr(empire->Income, std::string("food"));
+			auto const & alloys = GetValueOr(empire->Income, std::string("alloys"));
+			auto const & consumerGoods = GetValueOr(empire->Income, std::string("consumer_goods"));
+			auto const & volatileMotes = GetValueOr(empire->Income, std::string("volatile_motes"));
+			auto const & exoticGases = GetValueOr(empire->Income, std::string("exotic_gases"));
+			auto const & rareCrystals = GetValueOr(empire->Income, std::string("rare_crystals"));
+
 			_empiresListViewControl->AppendItem({
 				empire->Name,
-				"defender",
 				empire->MilitaryPower,
+				empire->EconomyPower,
+				empire->TechnologyPower,
+				empire->PlanetCount,
+				empire->PopCount,
+				empire->MonthlyResearch,
+				static_cast<int>(energy),
+				static_cast<int>(minerals),
+				static_cast<int>(food),
+				static_cast<int>(alloys),
+				static_cast<int>(consumerGoods),
+				static_cast<int>(volatileMotes),
+				static_cast<int>(exoticGases),
+				static_cast<int>(rareCrystals),
 			});
 
 		}

@@ -55,7 +55,26 @@ FederationsPanel::FederationsPanel(Window const & parentWindow)
 	_listViewControl->AppendColumn("R. Crystals (Prod.)", ColumnWidthMedium);
 	_listViewControl->Show(true);
 
+	_empiresListViewControl = std::make_unique<ListViewControl>(self, true, true, false);
+	_empiresListViewControl->AppendColumn("Name", ColumnWidthVeryLong);
+	_empiresListViewControl->AppendColumn("Military", ColumnWidthShort);
+	_empiresListViewControl->AppendColumn("Economy", ColumnWidthShort);
+	_empiresListViewControl->AppendColumn("Technology", ColumnWidthShort);
+	_empiresListViewControl->AppendColumn("Planets", ColumnWidthShort);
+	_empiresListViewControl->AppendColumn("Pops", ColumnWidthShort);
+	_empiresListViewControl->AppendColumn("Research (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("Energy (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("Minerals (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("Food (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("Alloys (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("C. Goods (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("V. Motes (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("E. Gases (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->AppendColumn("R. Crystals (Prod.)", ColumnWidthMedium);
+	_empiresListViewControl->Show(true);
+
 	ObserveUsingMethod(Application::Get(), OnApplicationEvent);
+	ObserveUsingMethod(* _listViewControl, OnListViewControlEvent);
 
 }
 
@@ -63,6 +82,7 @@ FederationsPanel::~FederationsPanel()
 {
 
 	Application::Get().Unsubscribe(this);
+	_listViewControl->Unsubscribe(this);
 
 }
 
@@ -98,7 +118,7 @@ void FederationsPanel::OnApplicationEvent(
 			auto const & gases = GetValueOr(federation.Income, std::string("exotic_gases"));
 			auto const & crystals = GetValueOr(federation.Income, std::string("rare_crystals"));
 
-			_listViewControl->AppendItem({
+			auto const itemIdentifier = _listViewControl->AppendItem({
 				federation.Name,
 				federation.DateCreated,
 				leader? leader->Name : std::string(),
@@ -118,6 +138,74 @@ void FederationsPanel::OnApplicationEvent(
 				static_cast<int>(crystals),
 			});
 
+			_federationsMapping[itemIdentifier] = &federation;
+
+		}
+
+	}
+
+}
+
+void FederationsPanel::OnListViewControlEvent(
+	ListViewControl const & control,
+	ListViewControlEvent const & event
+)
+{
+
+	if (ListViewControlEvent::SelectionChanged == event)
+	{
+
+		_empiresListViewControl->ClearItems();
+
+		auto const itemIndex = control.GetSelection();
+		if (-1 == itemIndex)
+			return;
+
+		auto const itemUID = control.GetUID(itemIndex);
+		if (!itemUID.has_value())
+			return;
+
+		auto const federationIterator = _federationsMapping.find(itemUID.value());
+		if (_federationsMapping.cend() == federationIterator)
+			return;
+
+		auto const & federation = (* federationIterator->second);
+		auto const & universe = Application::Get().Universe;
+
+		for (auto const & ID : federation.MemberIDs)
+		{
+
+			auto const empire = universe.GetEntityOfID<Empire>(ID);
+			if (!empire)
+				continue;
+
+			auto const & energy = GetValueOr(empire->Income, std::string("energy"));
+			auto const & minerals = GetValueOr(empire->Income, std::string("minerals"));
+			auto const & food = GetValueOr(empire->Income, std::string("food"));
+			auto const & alloys = GetValueOr(empire->Income, std::string("alloys"));
+			auto const & consumerGoods = GetValueOr(empire->Income, std::string("consumer_goods"));
+			auto const & volatileMotes = GetValueOr(empire->Income, std::string("volatile_motes"));
+			auto const & exoticGases = GetValueOr(empire->Income, std::string("exotic_gases"));
+			auto const & rareCrystals = GetValueOr(empire->Income, std::string("rare_crystals"));
+
+			_empiresListViewControl->AppendItem({
+				empire->Name,
+				empire->MilitaryPower,
+				empire->EconomyPower,
+				empire->TechnologyPower,
+				empire->PlanetCount,
+				empire->PopCount,
+				empire->MonthlyResearch,
+				static_cast<int>(energy),
+				static_cast<int>(minerals),
+				static_cast<int>(food),
+				static_cast<int>(alloys),
+				static_cast<int>(consumerGoods),
+				static_cast<int>(volatileMotes),
+				static_cast<int>(exoticGases),
+				static_cast<int>(rareCrystals),
+			});
+
 		}
 
 	}
@@ -128,17 +216,30 @@ void FederationsPanel::OnEnable(bool const & enabled)
 {
 
 	_listViewControl->Enable(enabled);
+	_empiresListViewControl->Enable(enabled);
 
 }
 
 void FederationsPanel::OnSize(int const & width, int const & height)
 {
 
+	static auto constexpr EmpiresControlHeightProportion = 0.3;
+
+	auto const empiresControlHeight = static_cast<int>(EmpiresControlHeightProportion * height);
+	auto const mainControlHeight = height - empiresControlHeight - StandardMarginWidth;
+
 	_listViewControl->Reposition(
 		-1,
 		-1,
 		width,
-		height
+		mainControlHeight
+	);
+
+	_empiresListViewControl->Reposition(
+		-1,
+		mainControlHeight + StandardMarginWidth,
+		width,
+		empiresControlHeight
 	);
 
 }
@@ -146,6 +247,9 @@ void FederationsPanel::OnSize(int const & width, int const & height)
 void FederationsPanel::Clear()
 {
 
+	_federationsMapping.clear();
+
 	_listViewControl->ClearItems();
+	_empiresListViewControl->ClearItems();
 
 }

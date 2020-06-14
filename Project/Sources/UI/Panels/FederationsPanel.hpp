@@ -57,6 +57,18 @@ class FederationsPanel final: public Window
 			enum class ApplicationEvent const & event
 		);
 
+		///
+		/// Event handler called in reaction to a List-View Control's event.
+		///
+		/// @param application The application that has called the handler.
+		/// @param event       The event that has happened.
+		///
+
+		void OnListViewControlEvent(
+			class ListViewControl const & control,
+			enum class ListViewControlEvent const & event
+		);
+
 	protected:
 
 		///
@@ -84,9 +96,21 @@ class FederationsPanel final: public Window
 	private:
 
 		///
+		/// Mapping between the main control's item identifiers and actual federations.
+		///
+
+		std::unordered_map<LPARAM, class Federation const *> _federationsMapping;
+
+		///
 		/// The main list view of this panel.
 		///
 
 		std::unique_ptr<ListViewControl> _listViewControl;
+
+		///
+		/// The list view containing empires participating in the war.
+		///
+
+		std::unique_ptr<ListViewControl> _empiresListViewControl;
 
 };
