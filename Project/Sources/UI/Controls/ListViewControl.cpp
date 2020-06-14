@@ -96,11 +96,11 @@ void ListViewControl::AppendColumn(std::string const & title, int const & width)
 
 }
 
-void ListViewControl::AppendItem(std::vector<std::variant<std::string, int>> const & values)
+LPARAM ListViewControl::AppendItem(std::vector<std::variant<std::string, int>> const & values)
 {
 
 	if (values.empty())
-		return;
+		return -1;
 
 	auto const firstColumValue = GetPrettyString(values[0]);
 
@@ -129,6 +129,8 @@ void ListViewControl::AppendItem(std::vector<std::variant<std::string, int>> con
 
 	_itemData[item.lParam].InputData = values;
 
+	return item.lParam;
+
 }
 
 void ListViewControl::ClearItems()
@@ -146,7 +148,26 @@ void ListViewControl::ClearItems()
 int ListViewControl::GetSelection() const
 {
 
-	return ListView_GetSelectionMark(_internalWindowHandle);
+	return ListView_GetNextItem(_internalWindowHandle, -1, LVNI_SELECTED);
+
+}
+
+std::optional<LPARAM> ListViewControl::GetUID(int const & index) const
+{
+
+	if (index < 0)
+		return std::nullopt;
+
+	LVITEM item = {0};
+	item.mask = LVIF_PARAM;
+	item.iItem = index;
+	item.lParam = -1;
+	ListView_GetItem(_internalWindowHandle, &item);
+
+	if (-1 == item.lParam)
+		return std::nullopt;
+
+	return item.lParam;
 
 }
 
@@ -180,6 +201,18 @@ LRESULT ListViewControl::OnNotify(NMHDR const & notification)
 			ItemComparator,
 			reinterpret_cast<LPARAM>(&sortingData)
 		);
+
+	}
+
+	else if (LVN_ITEMCHANGED == notification.code)
+	{
+
+		auto const & translatedNotification = * reinterpret_cast<NMLISTVIEW const *>(
+			&notification
+		);
+
+		if (translatedNotification.uNewState & LVIS_SELECTED)
+			Broadcast(ListViewControlEvent::SelectionChanged);
 
 	}
 

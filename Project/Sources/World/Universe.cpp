@@ -407,6 +407,26 @@ bool Universe::Create(Item const & itemTree)
 				0.0
 			);
 
+			if (auto const attackersNode = node.Find("attackers"))
+				for (auto const & empireNode : attackersNode->Children)
+				{
+
+					auto const empireID = empireNode.FindValueOr<Identifier>("country", -1);
+
+					war.AttackerIDs.insert(empireID);
+
+				}
+
+			if (auto const defendersNode = node.Find("defenders"))
+				for (auto const & empireNode : defendersNode->Children)
+				{
+
+					auto const empireID = empireNode.FindValueOr<Identifier>("country", -1);
+
+					war.DefenderIDs.insert(empireID);
+
+				}
+
 			Wars.push_back(war);
 
 		}

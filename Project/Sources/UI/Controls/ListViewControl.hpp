@@ -22,11 +22,24 @@
 
 #include <UI/Concepts/Window.hpp>
 
+#include <Utilities/Observable/Observable.hpp>
+
+///
+/// An event "ListViewControl" class can send.
+///
+
+enum class ListViewControlEvent
+{
+
+	SelectionChanged,
+
+};
+
 ///
 /// A list-view control.
 ///
 
-class ListViewControl: public Window
+class ListViewControl: public Observable<ListViewControl, ListViewControlEvent>, public Window
 {
 
 	public:
@@ -67,8 +80,10 @@ class ListViewControl: public Window
 		///
 		/// @param A vector with values to be inserted in columns.
 		///
+		/// @return The unique identifier of the appended item.
+		///
 
-		void AppendItem(std::vector<std::variant<std::string, int>> const & values);
+		LPARAM AppendItem(std::vector<std::variant<std::string, int>> const & values);
 
 		///
 		/// Deletes all items.
@@ -83,6 +98,16 @@ class ListViewControl: public Window
 		///
 
 		int GetSelection() const;
+
+		///
+		/// Retrieves item UID from its index.
+		///
+		/// @param index Item index.
+		///
+		/// @return Item UID.
+		///
+
+		std::optional<LPARAM> GetUID(int const & index) const;
 
 	protected:
 

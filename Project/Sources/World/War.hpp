@@ -53,4 +53,16 @@ class War final
 
 		double DefenderWarExhaustion;
 
+		///
+		/// IDs of attacking empires.
+		///
+
+		std::unordered_set<Identifier> AttackerIDs;
+
+		///
+		/// IDs of defending empires.
+		///
+
+		std::unordered_set<Identifier> DefenderIDs;
+
 };

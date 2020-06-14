@@ -48,6 +48,7 @@ WarsPanel::WarsPanel(Window const & parentWindow)
 	_empiresListViewControl->Show();
 
 	ObserveUsingMethod(Application::Get(), OnApplicationEvent);
+	ObserveUsingMethod(* _listViewControl, OnListViewControlEvent);
 
 }
 
@@ -55,6 +56,7 @@ WarsPanel::~WarsPanel()
 {
 
 	Application::Get().Unsubscribe(this);
+	_listViewControl->Unsubscribe(this);
 
 }
 
@@ -78,12 +80,78 @@ void WarsPanel::OnApplicationEvent(
 		Enable(true);
 
 		for (auto const & war : application.Universe.Wars)
-			_listViewControl->AppendItem({
+		{
+
+			auto const itemIdentifier = _listViewControl->AppendItem({
 				war.Name,
 				war.StartDate,
 				PrettifyNumber(war.AttackerWarExhaustion * 100) + "%",
 				PrettifyNumber(war.DefenderWarExhaustion * 100) + "%",
 			});
+
+			_warsMapping[itemIdentifier] = &war;
+
+		}
+
+	}
+
+}
+
+void WarsPanel::OnListViewControlEvent(
+	ListViewControl const & control,
+	ListViewControlEvent const & event
+)
+{
+
+	if (ListViewControlEvent::SelectionChanged == event)
+	{
+
+		_empiresListViewControl->ClearItems();
+
+		auto const itemIndex = control.GetSelection();
+		if (-1 == itemIndex)
+			return;
+
+		auto const itemUID = control.GetUID(itemIndex);
+		if (!itemUID.has_value())
+			return;
+
+		auto const warIterator = _warsMapping.find(itemUID.value());
+		if (_warsMapping.cend() == warIterator)
+			return;
+
+		auto const & war = (* warIterator->second);
+		auto const & universe = Application::Get().Universe;
+
+		for (auto const & ID : war.AttackerIDs)
+		{
+
+			auto const empire = universe.GetEntityOfID<Empire>(ID);
+			if (!empire)
+				continue;
+
+			_empiresListViewControl->AppendItem({
+				empire->Name,
+				"attacker",
+				empire->MilitaryPower,
+			});
+
+		}
+
+		for (auto const & ID : war.DefenderIDs)
+		{
+
+			auto const empire = universe.GetEntityOfID<Empire>(ID);
+			if (!empire)
+				continue;
+
+			_empiresListViewControl->AppendItem({
+				empire->Name,
+				"defender",
+				empire->MilitaryPower,
+			});
+
+		}
 
 	}
 
@@ -123,6 +191,8 @@ void WarsPanel::OnSize(int const & width, int const & height)
 
 void WarsPanel::Clear()
 {
+
+	_warsMapping.clear();
 
 	_listViewControl->ClearItems();
 	_empiresListViewControl->ClearItems();

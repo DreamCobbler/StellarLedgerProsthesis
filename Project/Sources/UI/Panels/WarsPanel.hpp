@@ -57,6 +57,18 @@ class WarsPanel final: public Window
 			enum class ApplicationEvent const & event
 		);
 
+		///
+		/// Event handler called in reaction to a List-View Control's event.
+		///
+		/// @param application The application that has called the handler.
+		/// @param event       The event that has happened.
+		///
+
+		void OnListViewControlEvent(
+			class ListViewControl const & control,
+			enum class ListViewControlEvent const & event
+		);
+
 	protected:
 
 		///
@@ -82,6 +94,12 @@ class WarsPanel final: public Window
 		void Clear();
 
 	private:
+
+		///
+		/// Mapping between the main control's item identifiers and actual wars.
+		///
+
+		std::unordered_map<LPARAM, class War const *> _warsMapping;
 
 		///
 		/// The main list view of this panel.
