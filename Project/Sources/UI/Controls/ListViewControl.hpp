@@ -192,10 +192,10 @@ class ListViewControl: public Observable<ListViewControl, ListViewControlEvent>,
 		bool _hasBorder;
 
 		///
-		/// The latest item identifier used.
+		/// The latest item unique identifier used.
 		///
 
-		LPARAM _latestItemIdentifier = 0;
+		LPARAM _latestItemUID = 0;
 
 		///
 		/// Sorting order for columns. **true** means that given column is sorted ascending.

@@ -109,7 +109,7 @@ LPARAM ListViewControl::AppendItem(std::vector<std::variant<std::string, int>> c
 	item.iItem = ListView_GetItemCount(_internalWindowHandle);
 	item.iSubItem = 0;
 	item.pszText = const_cast<char *>(firstColumValue.data());
-	item.lParam = ++_latestItemIdentifier;
+	item.lParam = ++_latestItemUID;
 
 	ListView_InsertItem(_internalWindowHandle, &item);
 
@@ -138,7 +138,7 @@ void ListViewControl::ClearItems()
 
 	ListView_DeleteAllItems(_internalWindowHandle);
 
-	_latestItemIdentifier = 0;
+	_latestItemUID = 0;
 	_itemData.clear();
 
 	std::fill(_columnSortingOrder.begin(), _columnSortingOrder.end(), true);

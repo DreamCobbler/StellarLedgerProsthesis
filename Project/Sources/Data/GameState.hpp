@@ -59,7 +59,7 @@ class GameState final
 		/// @param filePath Path to the file containing a saved game state.
 		///
 
-		GameState(std::filesystem::path const & filePath);
+		GameState(std::filesystem::path const & filePath, bool const & isIronman);
 
 		///
 		/// Loads the entire content of the game state.
@@ -90,5 +90,11 @@ class GameState final
 		///
 
 		std::filesystem::path _filePath;
+
+		///
+		/// Is the save game an ironman save?
+		///
+
+		bool _isIronman;
 
 };

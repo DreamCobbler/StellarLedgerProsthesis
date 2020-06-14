@@ -22,18 +22,35 @@
 
 #include <Utilities/Filesystem.hpp>
 
-std::string ReadTextFile(std::filesystem::path const & filePath)
+std::string ReadTextFile(
+	std::filesystem::path const & filePath,
+	std::optional<size_t> const & maximumLength
+)
 {
 
 	std::ifstream fileStream(filePath, std::ios::binary);
 	if (!fileStream.is_open() || !fileStream.good())
 		return {};
 
-	fileStream.seekg(0, std::ios::end);
+	unsigned long long fileSize = 0;
 
-	auto const fileSize = fileStream.tellg();
-	if (!fileSize)
-		return {};
+	if (!maximumLength.has_value())
+	{
+
+		fileStream.seekg(0, std::ios::end);
+
+		fileSize = fileStream.tellg();
+		if (!fileSize)
+			return {};
+
+	}
+
+	else
+	{
+
+		fileSize = maximumLength.value();
+
+	}
 
 	std::string text;
 	text.resize(fileSize);

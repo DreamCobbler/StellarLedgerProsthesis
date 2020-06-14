@@ -33,24 +33,52 @@ std::vector<GameState> GameState::LocateGameStates(std::filesystem::path const &
 
 	std::vector<GameState> gameStates;
 
+	std::unordered_map<std::string, size_t> empireNameOccurrences;
+
 	for (auto const & entry : std::filesystem::directory_iterator(directoryPath))
 	{
 
 		if (!std::filesystem::is_directory(entry))
 			continue;
 
+		std::string currentEmpireName;
+
 		for (auto const & subdirectoryEntry : std::filesystem::directory_iterator(entry))
 		{
 
 			auto const & entryPath = subdirectoryEntry.path();
 
-			if ("gamestate" == entryPath.filename()) // Exclude ironman saves.
-				continue;
-
-			auto const gameState = GameState(entryPath);
+			auto gameState = GameState(entryPath, "gamestate" == entryPath.filename());
 			if (!gameState)
 				continue;
 
+			if (currentEmpireName.empty())
+			{
+
+				currentEmpireName = gameState.EmpireName;
+
+				auto const empireNameIterator = empireNameOccurrences.find(currentEmpireName);
+
+				if (empireNameOccurrences.end() == empireNameIterator)
+				{
+
+					empireNameOccurrences[currentEmpireName] = 1;
+
+				}
+
+				else
+				{
+
+					empireNameIterator->second += 1;
+
+					currentEmpireName +=
+						" (" + std::to_string(empireNameIterator->second - 1) + ")";
+
+				}
+
+			}
+
+			gameState.EmpireName = currentEmpireName;
 			gameStates.push_back(gameState);
 
 		}
@@ -75,13 +103,27 @@ std::vector<GameState> GameState::LocateGameStates(std::filesystem::path const &
 
 }
 
-GameState::GameState(std::filesystem::path const & filePath):
-	_filePath(filePath)
+GameState::GameState(std::filesystem::path const & filePath, bool const & isIronman):
+	_filePath(filePath),
+	_isIronman(isIronman)
 {
 
 	std::string metadata;
-	if (!UnpackTextFileFromZIPArchive(_filePath, "meta", metadata))
-		return;
+
+	if (!_isIronman)
+	{
+
+		if (!UnpackTextFileFromZIPArchive(_filePath, "meta", metadata))
+			return;
+
+	}
+
+	else
+	{
+
+		metadata = ReadTextFile(_filePath, 1024);
+
+	}
 
 	auto processor = GameStateProcessor();
 	if (!processor.Process(metadata.data()))
@@ -99,14 +141,26 @@ bool GameState::Load()
 	if (!self)
 		return false;
 
-	auto const fileUnpackingResult = UnpackTextFileFromZIPArchive(
-		_filePath,
-		"gamestate",
-		Description
-	);
+	if (!_isIronman)
+	{
 
-	if (!fileUnpackingResult || Description.empty())
-		return false;
+		auto const fileUnpackingResult = UnpackTextFileFromZIPArchive(
+			_filePath,
+			"gamestate",
+			Description
+		);
+
+		if (!fileUnpackingResult || Description.empty())
+			return false;
+
+	}
+
+	else
+	{
+
+		Description = ReadTextFile(_filePath);
+
+	}
 
 	return true;
 

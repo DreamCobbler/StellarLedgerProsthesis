@@ -23,12 +23,16 @@
 ///
 /// Reads a text file to string.
 ///
-/// @param filePath The file path.
+/// @param filePath      The file path.
+/// @param maximumLength The maximum length of data read.
 ///
 /// @return The file's content.
 ///
 
-std::string ReadTextFile(std::filesystem::path const & filePath);
+std::string ReadTextFile(
+	std::filesystem::path const & filePath,
+	std::optional<size_t> const & maximumLength = std::nullopt
+);
 
 ///
 /// Unpacks a text file from a ZIP-compressed archive.

@@ -20,7 +20,7 @@ By default, SLP looks for saved game states in the "[Your Documents Folder]\\Par
 
 ### The list of saved game states on the left is empty.
 
-Well, that means that SLP found the folder that ought to contain saved games - otherwise it would display an error message - but couldn't find any readable save game file. Perhaps there aren't any? Perhaps all of your saved games are with *Ironman* mode enabled? (SLP isn't capable of reading *Ironman* saves.)
+Well, that means that SLP found the folder that ought to contain saved games - otherwise it would display an error message - but couldn't find any readable save game file. Either there are no saved game states, or SLP can't read them, for whatever reason.
 
 ## License
 
