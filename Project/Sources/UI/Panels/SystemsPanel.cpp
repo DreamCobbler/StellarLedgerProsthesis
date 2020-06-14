@@ -76,22 +76,17 @@ void SystemsPanel::OnApplicationEvent(
 		for (auto const & system : application.Universe.Systems)
 		{
 
-			auto const empire = application.Universe.GetEntityOfID<Empire>(system.OwnerID);
-
 			auto const mainSpecies = application.Universe.GetEntityOfID<Species>(
 				system.MainSpecies.first
 			);
-			auto const mainSpeciesName = mainSpecies->Name;
-			auto const mainSpeciesPercent = 100 * system.MainSpecies.second;
 
 			std::stringstream mainSpeciesStream;
 			mainSpeciesStream
-				<< mainSpeciesName << ": "
-				<< PrettifyNumber(mainSpeciesPercent) << "%";
+				<< mainSpecies->Name << ": " << FormatPercent(system.MainSpecies.second);
 
 			_listViewControl->AppendItem({
 				system.Name,
-				empire? empire->Name : std::string(),
+				application.Universe.GetEntityOfID<Empire>(system.OwnerID)->Name,
 				static_cast<int>(system.PlanetIDs.size()),
 				system.PopCount,
 				system.SpeciesCount,

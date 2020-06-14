@@ -11,9 +11,7 @@ std::string Resource::GetMainProducerDescription(Universe const & universe) cons
 	if (!empire)
 		return {};
 
-	auto const percent = PrettifyNumber(100 * MainProducer.second) + "%";
-
-	return empire->Name + " (" + percent + ")";
+	return empire->Name + " (" + FormatPercent(MainProducer.second) + ")";
 
 }
 
@@ -24,9 +22,7 @@ std::string Resource::GetMainConsumerDescription(Universe const & universe) cons
 	if (!empire)
 		return {};
 
-	auto const percent = PrettifyNumber(100 * MainConsumer.second) + "%";
-
-	return empire->Name + " (" + percent + ")";
+	return empire->Name + " (" + FormatPercent(MainConsumer.second) + ")";
 
 }
 

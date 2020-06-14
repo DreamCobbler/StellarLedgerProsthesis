@@ -41,3 +41,10 @@ std::string const & GetSomeText(
 	return inputString;
 
 }
+
+std::string FormatPercent(double const & number)
+{
+
+	return PrettifyNumber(100 * number) + "%";
+
+}

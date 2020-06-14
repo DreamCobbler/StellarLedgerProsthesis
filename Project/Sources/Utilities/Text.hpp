@@ -61,4 +61,14 @@ std::string const & GetSomeText(
 	std::string const & placeholder = EmptyStringPlaceholder
 );
 
+///
+/// Formats a 0.0-1.0 number as percent.
+///
+/// @param number The input number.
+///
+/// @return Formatted output string.
+///
+
+std::string FormatPercent(double const & number);
+
 #include "Text.inl"

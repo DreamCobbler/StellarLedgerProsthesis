@@ -84,7 +84,7 @@ void SpeciesPanel::OnApplicationEvent(
 				species.Plural,
 				homePlanet? homePlanet->Name : std::string(),
 				species.PopCount,
-				PrettifyNumber(100 * species.Happiness) + "%",
+				FormatPercent(species.Happiness),
 				species.PlanetCount,
 				species.MainSpeciesPlanetCount,
 			});

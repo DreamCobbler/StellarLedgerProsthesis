@@ -98,8 +98,8 @@ void WarsPanel::OnApplicationEvent(
 			auto const itemIdentifier = _listViewControl->AppendItem({
 				war.Name,
 				war.StartDate,
-				PrettifyNumber(war.AttackerWarExhaustion * 100) + "%",
-				PrettifyNumber(war.DefenderWarExhaustion * 100) + "%",
+				FormatPercent(war.AttackerWarExhaustion),
+				FormatPercent(war.DefenderWarExhaustion),
 			});
 
 			_warsMapping[itemIdentifier] = &war;
