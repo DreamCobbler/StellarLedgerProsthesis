@@ -35,7 +35,7 @@ EmpiresPanel::EmpiresPanel(Window const & parentWindow)
 
 	Create(parentWindow);
 
-	_listViewControl = std::make_unique<ListViewControl>(self, true);
+	_listViewControl = std::make_unique<ListViewControl>(self, true, true, false);
 	_listViewControl->AppendColumn("Name", ColumnWidthVeryLong);
 	_listViewControl->AppendColumn("Military", ColumnWidthShort);
 	_listViewControl->AppendColumn("Economy", ColumnWidthShort);
@@ -130,8 +130,8 @@ void EmpiresPanel::OnSize(int const & width, int const & height)
 {
 
 	_listViewControl->Reposition(
-		0,
-		0,
+		-1,
+		-1,
 		width,
 		height
 	);

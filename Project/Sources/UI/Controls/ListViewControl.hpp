@@ -49,7 +49,8 @@ class ListViewControl: public Window
 		ListViewControl(
 			Window const & parentWindow,
 			bool const & singleSelection,
-			bool const & sortOnHeaderClick = true
+			bool const & sortOnHeaderClick = true,
+			bool const & border = true
 		);
 
 		///
@@ -158,6 +159,12 @@ class ListViewControl: public Window
 		static std::string GetPrettyString(ItemValue const & itemValue);
 
 	private:
+
+		///
+		/// Whether the control has a border.
+		///
+
+		bool _hasBorder;
 
 		///
 		/// The latest item identifier used.

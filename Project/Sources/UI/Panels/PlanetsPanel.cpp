@@ -34,7 +34,7 @@ PlanetsPanel::PlanetsPanel(Window const & parentWindow)
 
 	Create(parentWindow);
 
-	_listViewControl = std::make_unique<ListViewControl>(self, true);
+	_listViewControl = std::make_unique<ListViewControl>(self, true, true, false);
 	_listViewControl->AppendColumn("Name", ColumnWidthMedium);
 	_listViewControl->AppendColumn("Owner", ColumnWidthVeryLong);
 	_listViewControl->AppendColumn("Size", ColumnWidthShort);

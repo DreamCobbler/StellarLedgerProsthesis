@@ -32,8 +32,10 @@
 ListViewControl::ListViewControl(
 	Window const & parentWindow,
 	bool const & singleSelection,
-	bool const & sortOnHeaderClick
-)
+	bool const & sortOnHeaderClick,
+	bool const & border
+):
+	_hasBorder(border)
 {
 
 	static auto const BackgroundPenHandle = reinterpret_cast<HPEN>(
@@ -191,10 +193,10 @@ void ListViewControl::OnSize(int const & width, int const & height)
 	SetWindowPos(
 		_internalWindowHandle,
 		0,
-		1,
-		1,
-		width - 2,
-		height - 2,
+		_hasBorder? 1 : 0,
+		_hasBorder? 1 : 0,
+		width - (_hasBorder? 2 : 0),
+		height - (_hasBorder? 2 : 0),
 		SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOZORDER
 	);
 

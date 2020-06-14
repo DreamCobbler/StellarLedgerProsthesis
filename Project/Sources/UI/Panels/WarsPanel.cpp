@@ -34,14 +34,14 @@ WarsPanel::WarsPanel(Window const & parentWindow)
 
 	Create(parentWindow);
 
-	_listViewControl = std::make_unique<ListViewControl>(self, true);
+	_listViewControl = std::make_unique<ListViewControl>(self, true, true, false);
 	_listViewControl->AppendColumn("Name", ColumnWidthUltraLong);
 	_listViewControl->AppendColumn("Date Started", ColumnWidthMedium);
 	_listViewControl->AppendColumn("Attacker's Exhaustion", ColumnWidthLong);
 	_listViewControl->AppendColumn("Defender's Exhaustion", ColumnWidthLong);
 	_listViewControl->Show(true);
 
-	_empiresListViewControl = std::make_unique<ListViewControl>(self, true);
+	_empiresListViewControl = std::make_unique<ListViewControl>(self, true, true, false);
 	_empiresListViewControl->AppendColumn("Empire", ColumnWidthVeryLong);
 	_empiresListViewControl->AppendColumn("Side", ColumnWidthMedium);
 	_empiresListViewControl->AppendColumn("Military", ColumnWidthShort);

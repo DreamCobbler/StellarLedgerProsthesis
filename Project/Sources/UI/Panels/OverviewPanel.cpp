@@ -35,7 +35,7 @@ OverviewPanel::OverviewPanel(Window const & parentWindow)
 
 	Create(parentWindow);
 
-	_listViewControl = std::make_unique<ListViewControl>(self, true);
+	_listViewControl = std::make_unique<ListViewControl>(self, true, true, false);
 	_listViewControl->AppendColumn("Parameter", ColumnWidthVeryLong);
 	_listViewControl->AppendColumn("Value", ColumnWidthVeryLong);
 	_listViewControl->Show(true);
