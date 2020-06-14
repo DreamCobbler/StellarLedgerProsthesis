@@ -44,6 +44,7 @@ WarsPanel::WarsPanel(Window const & parentWindow)
 
 	_empiresListViewControl = std::make_unique<ListViewControl>(self, true, true);
 	_empiresListViewControl->AppendColumn("Name", ColumnWidthVeryLong);
+	_empiresListViewControl->AppendColumn("Side", ColumnWidthShort);
 	_empiresListViewControl->AppendColumn("Military", ColumnWidthShort);
 	_empiresListViewControl->AppendColumn("Economy", ColumnWidthShort);
 	_empiresListViewControl->AppendColumn("Technology", ColumnWidthShort);
@@ -154,6 +155,7 @@ void WarsPanel::OnListViewControlEvent(
 
 			_empiresListViewControl->AppendItem({
 				empire->Name,
+				"attacker",
 				empire->MilitaryPower,
 				empire->EconomyPower,
 				empire->TechnologyPower,
@@ -190,6 +192,7 @@ void WarsPanel::OnListViewControlEvent(
 
 			_empiresListViewControl->AppendItem({
 				empire->Name,
+				"defender",
 				empire->MilitaryPower,
 				empire->EconomyPower,
 				empire->TechnologyPower,
