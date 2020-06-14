@@ -24,20 +24,10 @@
 #
 #
 
+from os.path import abspath
 from pathlib import Path
 from shutil import copy
 from typing import List, Optional
-
-#
-#
-# Constants.
-#
-#
-
-BinariesDirectoryPath = Path("../Build/Release/")
-DocsDirectoryPath = Path("../Docs/")
-
-OutputDirectoryPath = Path("../Environment/")
 
 #
 #
@@ -52,6 +42,19 @@ def Main():
     # The main function.
     #
     ##
+
+    # Define the main directory path.
+
+    MainDirectoryPath = Path(abspath(__file__)).parent.parent
+
+    # Define directory paths.
+
+    BinariesDirectoryPath = MainDirectoryPath / "Build" / "Release"
+    DocsDirectoryPath = MainDirectoryPath / "Docs"
+
+    OutputDirectoryPath = MainDirectoryPath / "Environment"
+
+    # Copy appropriate files.
 
     OutputDirectoryPath.mkdir(parents = True, exist_ok = True)
 
