@@ -54,28 +54,12 @@ class GameState final
 	public:
 
 		///
-		/// The constructor. Does nothing.
-		///
-
-		GameState() {}
-
-		///
 		/// The constructor. Reads metadata from the file.
 		///
 		/// @param filePath Path to the file containing a saved game state.
 		///
 
 		GameState(std::filesystem::path const & filePath);
-
-		///
-		/// Preloads a saved game state, i.e. reads its metadata.
-		///
-		/// @param filePath Path to the file containing a saved game state.
-		///
-		/// @return **true** if the game state has been read correctly, **false** otherwise.
-		///
-
-		bool Preload(std::filesystem::path const & filePath);
 
 		///
 		/// Loads the entire content of the game state.

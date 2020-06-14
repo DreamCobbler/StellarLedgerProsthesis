@@ -34,8 +34,8 @@ enum class ApplicationEvent
 {
 
 	UniverseIsChanging,
-	UniverseHasChanged, // "The world... is changed. I feel it in the water. I feel it in the earth.
-	                    //  I smell it in the air."
+	UniverseHasChanged, // "The world is changed. I feel it in the water. I feel it in the earth."
+	                    // "I smell it in the air."
 
 };
 
@@ -51,7 +51,7 @@ class Application final: public Observable<Application, ApplicationEvent>
 		///
 		/// Retrieves the one and only instance of the class.
 		///
-		/// @return *the* instance of the class.
+		/// @return *The* instance of the class.
 		///
 
 		static Application & Get();

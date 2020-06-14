@@ -66,10 +66,10 @@ void Application::LoadGameState(GameState & savedGameState)
 		return;
 
 	Broadcast(ApplicationEvent::UniverseIsChanging);
-
 	auto const startTimepoint = std::chrono::steady_clock::now();
 
 	auto processor = GameStateProcessor();
+
 	if (!processor.Process(savedGameState.Description))
 		return;
 
@@ -77,7 +77,6 @@ void Application::LoadGameState(GameState & savedGameState)
 		return;
 
 	UniverseLoadingTime = CountMilliseconds(startTimepoint, std::chrono::steady_clock::now());
-
 	Broadcast(ApplicationEvent::UniverseHasChanged);
 
 }

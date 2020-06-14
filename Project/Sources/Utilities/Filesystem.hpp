@@ -31,17 +31,19 @@
 std::string ReadTextFile(std::filesystem::path const & filePath);
 
 ///
-/// Unpacks a ZIP-compressed file.
+/// Unpacks a text file from a ZIP-compressed archive.
 ///
-/// @param filePath The file path.
+/// @param filePath              The file path.
+/// @param fileNameWithinArchive The name of the file to be unpacked.
+/// @param buffer                The buffer to which file contents is decompressed.
 ///
-/// @return A pair composed of the memory buffer (allocated using malloc) and its size.
+/// @return A string containing file contents.
 ///
 
-std::vector<char> UnpackFileFromZIPArchive(
+bool UnpackTextFileFromZIPArchive(
 	std::filesystem::path const & filePath,
 	std::string const & fileNameWithinArchive,
-	bool const & isTextFile = false
+	std::string & buffer
 );
 
 ///

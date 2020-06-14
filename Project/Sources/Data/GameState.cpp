@@ -47,25 +47,15 @@ std::vector<GameState> GameState::LocateGameStates(std::filesystem::path const &
 			if ("gamestate" == entryPath.filename()) // Exclude ironman saves.
 				continue;
 
-			gameStates.emplace_back(entryPath);
+			auto const gameState = GameState(entryPath);
+			if (!gameState)
+				continue;
+
+			gameStates.push_back(gameState);
 
 		}
 
 	}
-
-	gameStates.erase(
-		std::remove_if(
-			gameStates.begin(),
-			gameStates.end(),
-			[](GameState const & gameState)
-			{
-
-				return !gameState;
-
-			}
-		),
-		gameStates.end()
-	);
 
 	std::sort(
 		gameStates.begin(),
@@ -76,8 +66,7 @@ std::vector<GameState> GameState::LocateGameStates(std::filesystem::path const &
 			if (left.EmpireName != right.EmpireName)
 				return left.EmpireName < right.EmpireName;
 
-			else
-				return left.Date < right.Date;
+			return left.Date < right.Date;
 
 		}
 	);
@@ -86,40 +75,21 @@ std::vector<GameState> GameState::LocateGameStates(std::filesystem::path const &
 
 }
 
-GameState::GameState(std::filesystem::path const & filePath)
+GameState::GameState(std::filesystem::path const & filePath):
+	_filePath(filePath)
 {
 
-	Preload(filePath);
-
-}
-
-bool GameState::Preload(std::filesystem::path const & filePath)
-{
-
-	Clear();
-
-	// Read the "meta" file from the archive.
-
-	auto const fileContent = UnpackFileFromZIPArchive(filePath, "meta", true);
-	if (fileContent.empty())
-		return false;
-
-	// Process its content and read the metadata.
+	std::string metadata;
+	if (!UnpackTextFileFromZIPArchive(_filePath, "meta", metadata))
+		return;
 
 	auto processor = GameStateProcessor();
-	if (!processor.Process(fileContent.data()))
-		return false;
+	if (!processor.Process(metadata.data()))
+		return;
 
 	auto const & itemTree = processor.ViewItemTree();
-
 	EmpireName = itemTree.FindValueOr<std::string>("name", "");
 	Date = itemTree.FindValueOr<std::string>("date", "");
-
-	// Set the file path and return.
-
-	_filePath = filePath;
-
-	return true;
 
 }
 
@@ -129,16 +99,13 @@ bool GameState::Load()
 	if (!self)
 		return false;
 
-	// Read the "gamestate" file from the archive.
+	auto const fileUnpackingResult = UnpackTextFileFromZIPArchive(
+		_filePath,
+		"gamestate",
+		Description
+	);
 
-	auto const fileContent = UnpackFileFromZIPArchive(_filePath, "gamestate", true);
-	if (fileContent.empty())
-		return false;
-
-	// Set the description and return.
-
-	Description = std::string(fileContent.data());
-	if (Description.empty())
+	if (!fileUnpackingResult || Description.empty())
 		return false;
 
 	return true;
@@ -148,7 +115,11 @@ bool GameState::Load()
 void GameState::Clear()
 {
 
-	self = GameState();
+	EmpireName.clear();
+	Date.clear();
+	Description.clear();
+
+	_filePath.clear();
 
 }
 

@@ -45,20 +45,24 @@ std::string ReadTextFile(std::filesystem::path const & filePath)
 
 }
 
-std::vector<char> UnpackFileFromZIPArchive(
+bool UnpackTextFileFromZIPArchive(
 	std::filesystem::path const & filePath,
 	std::string const & fileNameWithinArchive,
-	bool const & isTextFile
+	std::string & buffer
 )
 {
 
 	// Open the archive.
 
 	int errorCode = 0;
-	auto const archiveHandle = zip_open(filePath.string().data(), ZIP_RDONLY, &errorCode);
+	auto const archive = zip_open(
+		filePath.string().data(),
+		ZIP_RDONLY,
+		&errorCode
+	);
 
-	if (!archiveHandle || errorCode)
-		return {};
+	if (!archive || errorCode)
+		return false;
 
 	// Retrieve file information and create the buffer.
 
@@ -66,38 +70,31 @@ std::vector<char> UnpackFileFromZIPArchive(
 	zip_stat_init(&fileMetadata);
 
 	auto const fileMetadataRetrieval = zip_stat(
-		archiveHandle,
+		archive,
 		fileNameWithinArchive.data(),
 		0,
 		&fileMetadata
 	);
 
-	if (-1 == fileMetadataRetrieval || !(fileMetadata.flags & ZIP_STAT_SIZE))
+	if (-1 == fileMetadataRetrieval)
 	{
 
-		zip_close(archiveHandle);
+		zip_close(archive);
 
-		return {};
+		return false;
 
 	}
 
-	auto const bufferSize = static_cast<size_t>(
-		isTextFile?
-		fileMetadata.size + 1:
-		fileMetadata.size
-	);
-
-	auto buffer = std::vector<char>(bufferSize);
-	if (isTextFile)
-		buffer.back() = '\0'; // Mark the end of the text.
+	auto const bufferSize = static_cast<size_t>(fileMetadata.size + 1);
+	buffer.resize(bufferSize);
 
 	// Open the file within the archive and decompress it into the buffer.
 
-	auto const compressedFile = zip_fopen(archiveHandle, fileNameWithinArchive.data(), 0);
+	auto const compressedFile = zip_fopen(archive, fileNameWithinArchive.data(), 0);
 	if (!compressedFile)
 	{
 
-		zip_close(archiveHandle);
+		zip_close(archive);
 
 		return {};
 
@@ -108,13 +105,13 @@ std::vector<char> UnpackFileFromZIPArchive(
 	{
 
 		zip_fclose(compressedFile);
-		zip_close(archiveHandle);
+		zip_close(archive);
 
 	}
 
 	// Return.
 
-	return buffer;
+	return true;
 
 }
 

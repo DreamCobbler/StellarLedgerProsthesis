@@ -20,8 +20,6 @@
 
 #pragma once
 
-#include <Utilities/StringHighlight/StringHighlight.hpp>
-
 ///
 /// Represents a single data item.
 ///
@@ -47,7 +45,7 @@ class Item final
 		/// The item's children.
 		///
 
-		std::list<Item> Children;
+		std::vector<Item> Children;
 
 	public:
 
