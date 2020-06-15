@@ -8,15 +8,15 @@
 
 ### How do I download it?
 
-Go to the [Releases tab](https://github.com/DreamCobbler/StellarLedgerProsthesis/releases) on SLP's GitHub page: available versions of the application are listed there - find the newest one. (Tip: it's the one at the top of the list.) Then, at the bottom of the specific version's section, are download links: just download the one named "Stellar Ledger Prosthesis x.x.x.zip" (with "x.x.x" being the version number).
+Go to the [Releases tab](https://github.com/DreamCobbler/StellarLedgerProsthesis/releases) on SLP's GitHub page: available versions of the application are listed there - find the newest one. (Tip: it's the one at the top of the list.) Then, at the bottom of the specific version's section, are download links: just download the one named *Stellar Ledger Prosthesis x.x.x.zip* (with "x.x.x" being the version number).
 
 ### How do I run it?
 
-Just download the archive and unpack it anywhere, then launch "Stellar Ledger Prosthesis.exe". The application doesn't require installation.
+Just download the archive and unpack it anywhere, then launch *Stellar Ledger Prosthesis.exe*. The application doesn't require installation.
 
 ### There's some error when the program starts.
 
-By default, SLP looks for saved game states in the "[Your Documents Folder]\\Paradox Interactive\\Stellaris\\save games\\" folder. If this folder doesn't exist, it displays an error message, then a dialog allowing you to choose a folder containing saved games. Just choose the right folder (usually called "save games"). If saved game states aren't in their usual location, you're probably responsible for moving them elsewhere, so you ought to know where they are.
+By default, SLP looks for saved game states in the *[Your Documents Folder]\\Paradox Interactive\\Stellaris\\save games\\* folder. If this folder doesn't exist, it displays an error message, then a dialog allowing you to choose a folder containing saved games. Just choose the right folder (usually called "save games"). If saved game states aren't in their usual location, you're probably responsible for moving them elsewhere, so you ought to know where they are.
 
 ### The list of saved game states on the left is empty.
 

@@ -1,4 +1,4 @@
-This application uses following libraries:
+This application uses the following libraries:
 
 	- libzip (https://libzip.org/), under the terms of the 3-clause BSD license.
 	- zlib (https://zlib.net/), under the terms of the zlib license.
