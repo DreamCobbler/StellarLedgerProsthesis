@@ -130,7 +130,7 @@ void SidePanel::UpdateContent()
 				"Please select it manually using the dialog that will appear after you close this "
 				"message.",
 			ApplicationName.data(),
-			MB_TASKMODAL | MB_ICONERROR
+			MB_TASKMODAL | MB_ICONINFORMATION
 		);
 
 		OpenFileDialog openFolderDialog(true);
