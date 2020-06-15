@@ -1,7 +1,6 @@
 # Stellar Ledger Prosthesis (*1.0.0*)
 
 ![Screenshot 1](/Screenshots/1.png?raw=true)
-![Screenshot 2](/Screenshots/2.png?raw=true)
 
 **Stellar Ledger Prosthesis** is a standalone, fan-made tool for [Stellaris](https://store.steampowered.com/app/281990/Stellaris/) - a 4X video game made by Paradox Interactive. It allows you to read saved game states and display some information about each empire/star system/planet/etc. present in the game's universe.
 
