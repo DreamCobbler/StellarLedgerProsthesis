@@ -18,7 +18,7 @@ Just download the archive and unpack it anywhere, then launch *Stellar Ledger Pr
 
 By default, SLP looks for saved game states in the *[Your Documents Folder]\\Paradox Interactive\\Stellaris\\save games\\* folder. If this folder doesn't exist, it displays an error message, then a dialog allowing you to choose a folder containing saved games. Just choose the right folder (usually called "save games"). If saved game states aren't in their usual location, you're probably responsible for moving them elsewhere, so you ought to know where they are.
 
-### That's not the error I meant.
+### That's not the error it shows.
 
 Huh. In that case please go to the **[Issues tab](https://github.com/DreamCobbler/StellarLedgerProsthesis/issues)** on SLP's GitHub page and post the error message there. I'll see what I can do about it.
 
